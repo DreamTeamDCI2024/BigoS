@@ -28,11 +28,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json({ limit: "50mb", extended: true }));
 
 // Paths
-app.get("/", (req, res) => {
-  console.log("Hello");
-});
 app.use("/api", productRoutes);
-app.use("/user", userRouter);
+app.use("/api/user", userRouter);
 app.use("/api/orders", orderRoutes)
 app.use("/api/payments", paymentRoutes);
 // Listening server

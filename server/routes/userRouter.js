@@ -1,6 +1,7 @@
 import express from "express";
 import { signUp, login, getAllUsers, loggedIn, updateUser, deleteUser } from "../controllers/userController.js";
 import auth from '../middleware/auth.js';
+import {protect} from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post("/login", login);
 router.get("/allusers", getAllUsers);
 
 //http://localhost:4000/user/profile/
-router.get("/profile", auth, loggedIn);
+router.get("/profile", protect, loggedIn);
 
 //http://localhost:4000/user/delete/:id
 router.delete("/delete/:id", auth, deleteUser);

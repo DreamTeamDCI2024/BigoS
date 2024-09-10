@@ -1,0 +1,35 @@
+.logout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+}
+.logout button{
+    padding: 20px;
+    font-size: 20px;
+    background-color: red;
+    cursor: pointer;
+    font-family: 'Poppins';
+}
+.settings form{
+    display: flex;
+    flex-direction: column;
+}
+.settings-update-btn{
+    border: 1px solid black;
+    background: green;
+}
+
+.order-wrap{
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.order-card{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px; 
+    margin-bottom: 20px;
+    background-color: antiquewhite;
+}

@@ -1,0 +1,282 @@
+/* -----General Header----- */
+.header{
+    top: 0;
+    left: 0;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    box-shadow: 0 1px 3px -2px white;
+    background-color: transparent;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+.header.scrolled{
+    background-color: white ;
+}
+.header:hover{
+    background-color: white;
+}
+/* -----Button Styles----- */
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+/* General Button Hover Effect */
+button:hover {
+    color: black; /* Change color on hover */
+    transform: scale(1.05); /* Slightly enlarge button */
+}
+/* -----Burger menu----- */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+.menu button:active{
+    color: red;
+}
+/* -----Sidebar----- */
+#menu_toggle {
+    opacity: 0;
+}
+.menu_btn {
+    display: flex; 
+    align-items: center;
+    position: fixed;
+    top: 55px;
+    left: 20px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+}
+.menu_btn > span,
+.menu_btn > span::before,
+.menu_btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition-duration: .25s;
+}
+.menu_btn > span::before {
+  content: '';
+  top: -8px;
+}
+.menu_btn > span::after {
+  content: '';
+  top: 8px;
+}
+.sidebar {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    width: 300px;
+    height: 100%;
+    margin: 0;
+    padding: 80px 0;
+    list-style: none;
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+    transition-duration: .25s;
+}
+.sidebar li{
+    display: block;
+    padding: 12px 24px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition-duration: .25s;
+}
+.sidebar li:hover{
+    background-color: #CFD8DC;
+}
+.sidebar li a{
+    text-decoration: none;
+}
+.sidebar li a:link{
+    color: black;
+}
+.sidebar li a:visited{
+    color: black;
+}
+.sidebar li a:hover{
+    color: black;
+}
+.sidebar li a:active{
+    color: red;
+}
+#menu_toggle:checked ~ .menu_btn > span {
+    transform: rotate(45deg);
+}
+#menu_toggle:checked ~ .menu_btn > span::before {
+    top: 0;
+    transform: rotate(0);
+}
+#menu_toggle:checked ~ .menu_btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+#menu_toggle:checked ~ .sidebar {
+    visibility: visible;
+    left: 0;
+}
+.header:hover .menu_btn span {
+    background-color: black;
+}
+.header:hover .menu_btn  span::before{
+    background-color: black;
+}
+.header:hover .menu_btn  span::after {
+    background-color: black;
+}
+.header.scrolled .menu_btn > span,
+.header.scrolled .menu_btn > span::before,
+.header.scrolled .menu_btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  transition-duration: .25s;
+}
+/* -----Submenu----- */
+.submenu-container {
+    position: relative;
+}
+.submenu {
+    display: block; 
+    overflow: hidden; 
+    height: 0; 
+    opacity: 0; 
+    transition: height 0.5s ease, opacity 0.5s ease; 
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.submenu-container.open .submenu {
+    height: auto; 
+    opacity: 1; 
+    transition: height 0.5s ease, opacity 0.5s ease; 
+}
+.submenu li {
+    padding: 12px 24px;
+    font-size: 18px;
+    color: #333;
+}
+.submenu li a {
+    text-decoration: none;
+    color: black;
+}
+.submenu li:hover {
+    background-color: #CFD8DC;
+}
+/* -----Logo----- */
+.nav-logo{
+    border: 1px solid white;
+    border-radius: 50%;
+}
+.nav-logo button{
+    border: none;
+    outline: none;
+    columns: #515151;
+    cursor: pointer;
+    background: transparent;
+}
+.nav-logo p{
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+.nav-logo a{
+    text-decoration: none;
+}
+.header:hover .nav-logo{
+    border: 1px solid black;
+}
+.header:hover .nav-logo p {
+    color: black;
+}
+.header.scrolled .nav-logo{
+    color: black ;
+    border: 1px solid black;
+}
+.header.scrolled .nav-logo p{
+    color: black ;
+}
+.header.scrolled .menu_btn span::after{
+    background-color: black ;
+}
+/* -----Login-cart section---- */
+.nav-login-cart{
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+.nav-login-cart button{
+    border: none;
+    outline: none;
+    font-size: 26px;
+    cursor: pointer;
+    background: transparent;
+}
+.nav-icons{
+    color: white;
+}
+.header:hover .nav-icons {
+    color: black;
+}
+.header.scrolled .nav-icons{
+    color: black ;
+}
+.nav-login-cart button:active{
+    color: red;
+}
+.nav-wishlist-count{
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px;
+    margin-left: -55px;
+    border-radius: 11px;
+    font-size: 14px;
+    background: red;
+    color: white;
+}
+.nav-cart-count{
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px;
+    margin-left: -55px;
+    border-radius: 11px;
+    font-size: 14px;
+    background: red;
+    color: white;
+}
+/* ----Screens ---*/
+@media(max-width:1280px){
+    .header{
+        width: 100%;
+    }
+    .navbar{
+        padding: 12px 50px;
+        
+    }
+    .nav-logo p{
+        font-size: 26px;
+    }
+}
