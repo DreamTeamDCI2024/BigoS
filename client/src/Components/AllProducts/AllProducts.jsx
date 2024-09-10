@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import all_products from '../Assets/all_products';
 import axiosInstance from '../../Context/axiosInstanse';
 import Item from '../Item/Item';
 import './AllProducts.css';

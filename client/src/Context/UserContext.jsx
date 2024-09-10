@@ -12,7 +12,7 @@ export function UserContextProvider({children}) {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await axiosInstance.get('/user/profile', {
+                const response = await axiosInstance.get('/api/user/profile', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },

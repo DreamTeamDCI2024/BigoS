@@ -71,7 +71,7 @@ const ShopContextProvider = (props) => {
         });
 
         if(localStorage.getItem('token')){
-            axiosInstance.post('/cart/addtocart', {itemId}, {
+            axiosInstance.post('/api/cart/addtocart', {itemId}, {
                 headers:{
                     'Authorization':`Bearer ${localStorage.getItem('token')}`,
                     'Content-Type':'application/json',

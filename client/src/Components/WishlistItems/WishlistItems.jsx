@@ -33,7 +33,7 @@ const WishlistItems = ({ products = [] }) => {
           <div key={product._id} className="wishlist-format">
             <Link to={`/products/${product._id}`}>
               <img 
-                src={product.images?.[0]?.product?.[0]?.url || ''} 
+                src={product.images?.product?.[0]?.url || ''} 
                 alt={product.name || 'Product'} 
                 className="whishlisticon-product-icon" 
               />
@@ -59,11 +59,11 @@ WishlistItems.propTypes = {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string,
     price: PropTypes.number,
-    images: PropTypes.arrayOf(PropTypes.shape({
+    images: PropTypes.shape({
       product: PropTypes.arrayOf(PropTypes.shape({
         url: PropTypes.string
       }))
-    }))
+    })
   }))
 };
 

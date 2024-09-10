@@ -26,8 +26,8 @@ const ProductDisplay = () => {
 
                 console.log('Product images:', response.data.images);
 
-                if(response.data.images && response.data.images.length > 0){
-                    setMainImage(response.data.images[0].product[0].url);
+                if (response.data.images && response.data.images.product && response.data.images.product.length > 0) {
+                    setMainImage(response.data.images.product[0].url);
                 }else {
                     console.warn('No images')
                 }
@@ -51,7 +51,7 @@ const ProductDisplay = () => {
     <div className='product-display'>
         <div className="product-display-left">
             <div className='product-display-img-list'>
-                {product.images[0]?.product.map((img, index) => (
+                {product.images && product.images.product && product.images.product.map((img, index) => (
                     <img key={index} src={img.url} alt={`Product ${index}`} onClick={() => handleImageClick(img.url)}/>
                 ))}
             </div>

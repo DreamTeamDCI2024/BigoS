@@ -4,8 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import productRoutes from "./routes/productRouter.js";
 import userRouter from "./routes/userRouter.js";
-import orderRoutes from "./routes/orderRoutes.js"
-import paymentRoutes from "./routes/paymentRoutes.js"
+import orderRoutes from "./routes/orderRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import cartRouter from './routes/cartRouter.js';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use("/api", productRoutes);
 app.use("/api/user", userRouter);
 app.use("/api/orders", orderRoutes)
 app.use("/api/payments", paymentRoutes);
+app.use("/api/cart", cartRouter);
 // Listening server
 mongoose
   .connect(process.env.CONNECTION_URL)

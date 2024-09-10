@@ -69,7 +69,7 @@ const CartItems = () => {
         <div key={product._id}>
           <div className="cartitems-format">
             <Link to={`/products/${product._id}`}>
-              <img src={product.images ? (product.images[0] ? (product.images[0].product ? (product.images[0].product[0] ? product.images[0].product[0].url : '') : '') : '') : ''} alt="" className="carticon-product-icon"/>
+              <img src={product.images && product.images.product && product.images.product[0] ? product.images.product[0].url : ''} alt="" className="carticon-product-icon"/>
             </Link>
             <p>{product.name}</p>
             <p>${product.price}</p>
