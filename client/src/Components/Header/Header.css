@@ -38,8 +38,6 @@ button {
 button:hover {
     color: #454545;
     transform: scale(1.05); 
-    color: #454545;
-    transform: scale(1.05); 
 }
 /* -----Burger menu----- */
 .menu {
@@ -94,6 +92,7 @@ button:hover {
     margin: 0;
     padding: 80px 0;
     list-style: none;
+
     /* background-color: #ECEFF1;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2); */
     background-color: rgba(255, 255, 255, 0.2);
@@ -112,6 +111,7 @@ button:hover {
     transition-duration: .25s;
 
 
+
 }
 .sidebar li:hover{
     background-color: #CFD8DC;
@@ -120,7 +120,6 @@ button:hover {
     text-decoration: none;
 }
 .sidebar li a:link{
-    color: #454545;
     color: #454545;
 }
 .sidebar li a:visited{
@@ -149,7 +148,6 @@ button:hover {
 }
 .header:hover .menu_btn span {
     background-color: #454545;
-    background-color: #454545;
 }
 .header:hover .menu_btn  span::before{
     background-color: #454545;
@@ -166,8 +164,7 @@ button:hover {
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: #454545;
- 
+  background-color: #454545; 
   transition-duration: .25s;
 }
 /* -----Submenu----- */
@@ -204,7 +201,6 @@ button:hover {
 /* -----Logo----- */
 .nav-logo{
     border: 1px solid #efece7;
-    
     border-radius: 50%;
 }
 .nav-logo button{
@@ -217,7 +213,6 @@ button:hover {
 .nav-logo p{
     font-size: 24px;
     color: #efece7;
-    
     text-decoration: none;
 }
 .nav-logo a{
@@ -225,24 +220,19 @@ button:hover {
 }
 .header:hover .nav-logo{
     border: 1px solid #454545;
-    
 }
 .header:hover .nav-logo p {
     color: #454545;
-   
 }
 .header.scrolled .nav-logo{
     color: #454545 ;
     border: 1px solid #454545;
-    
 }
 .header.scrolled .nav-logo p{
     color: #454545;
-    
 }
 .header.scrolled .menu_btn span::after{
     background-color: #454545 ;
-    
 }
 /* -----Login-cart section---- */
 .nav-login-cart{
@@ -259,15 +249,12 @@ button:hover {
 }
 .nav-icons{
     color: #efece7;
-    
 }
 .header:hover .nav-icons {
     color: #454545;
-    
 }
 .header.scrolled .nav-icons{
     color: #454545 ;
-   
 }
 .nav-login-cart button:active{
     color: red;
