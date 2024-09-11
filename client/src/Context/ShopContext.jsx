@@ -5,27 +5,7 @@ import axiosInstance from "./axiosInstanse.jsx";
 export const ShopContext = createContext(null);
 
 const ShopContextProvider = (props) => {
-    const [products, setProducts] = useState([]);
-    const [cartItems, setCartItems] = useState({});
-    const [wishlistItems, setWishlistItems] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     
-    useEffect(() => {
-        axiosInstance.get('/api/products')
-        .then(response => {
-            setProducts(response.data);
-            setCartItems(getDefaultCart(response.data));
-            setWishlistItems(getDefaultWishlist(response.data));
-            setLoading(false);
-        })
-        .catch(error => {
-            console.error('Axios error:', error);
-            setError('Error fetching products: ' + (error.response?.data?.message || error.message));
-            setLoading(false);
-        });
-    }, [setError, setLoading]);
-
     const getDefaultCart = (productList) => {
         const savedCart = localStorage.getItem('cartItems');
         if (savedCart) {
@@ -37,9 +17,9 @@ const ShopContextProvider = (props) => {
           cart[product._id] = 0;
         });
         return cart;
-      };
+    };
     
-      const getDefaultWishlist = (productList) => {
+    const getDefaultWishlist = (productList) => {
         const savedWishlist = localStorage.getItem('wishlistItems');
         if (savedWishlist) {
           return JSON.parse(savedWishlist);
@@ -50,7 +30,36 @@ const ShopContextProvider = (props) => {
           wishlist[product._id] = false;
         });
         return wishlist;
-      };
+    };
+
+    const [products, setProducts] = useState([]);
+    const [cartItems, setCartItems] = useState(()=> getDefaultCart([]));
+    const [wishlistItems, setWishlistItems] = useState(() => getDefaultWishlist([]));
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    useEffect(() => {
+        axiosInstance.get('/api/products')
+        .then(response => {
+            setProducts(response.data);
+            setCartItems(prevCart => {
+                const defaultCart = getDefaultCart(response.data);
+                return {...defaultCart, ...prevCart};
+            });
+            setWishlistItems(prevWishlist => {
+                const defaultWishlist = getDefaultWishlist(response.data);
+                return {...defaultWishlist, ...prevWishlist};
+            });
+            setLoading(false);
+        })
+        .catch(error => {
+            console.error('Axios error:', error);
+            setError('Error fetching products: ' + (error.response?.data?.message || error.message));
+            setLoading(false);
+        });
+    }, [setError, setLoading]);
+
+
    
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));

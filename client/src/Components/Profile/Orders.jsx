@@ -1,17 +1,26 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../Context/axiosInstanse.jsx";
-import { ShopContext } from "../../Context/ShopContext.jsx";
+
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const { user } = useContext(ShopContext);
-  const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axiosInstance.get("/api/orders/myorders");
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            throw new Error('No token found');
+        }
+
+        const response = await axiosInstance.get("/api/orders/myorders", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token in the Authorization header
+          },
+        });
         if (response.data) {
           setOrders(response.data);
         }
@@ -22,9 +31,8 @@ const Orders = () => {
         setLoading(false);
       }
     };
-    fetchOrders();
+   fetchOrders();
   }, []);
-
   if (loading) {
     return <div>Loading orders...</div>;
   }
@@ -45,7 +53,7 @@ const Orders = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
             <div>
               <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Shipping Address:</h3>
-              <p>{order.shippingAddress.street}</p>
+              <p>{order.shippingAddress.street}, {order.shippingAddress.houseNumber}</p>
               <p>{order.shippingAddress.city}, {order.shippingAddress.zip}</p>
               <p>{order.shippingAddress.country}</p>
             </div>

@@ -1,0 +1,50 @@
+.checkout {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #d2caca;
+}
+  
+.checkout-section {
+    margin-bottom: 0px;
+}
+  
+.checkout-section h2 {
+    margin-bottom: 10px;
+}
+  
+.checkout-section p {
+    margin: 5px 0;
+}
+.checkout-section img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+  
+input[type="radio"] {
+    margin-right: 10px;
+}
+  
+button {
+    display: block;
+    padding: 10px;
+    color: rgb(8, 0, 0);
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.order-summary{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order h3{
+    color: black;
+}
+

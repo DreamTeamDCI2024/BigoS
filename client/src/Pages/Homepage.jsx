@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import SmoothScrollProvider from '../Components/home-videoScroll/SmoothScrollProvider';
-import WebGPUVideoScrollComponent from "../components/home-videoScroll/WebGPUVideoScrollComponent";
+import SmoothScrollProvider from '../Components/home-videoScroll/SmoothScrollProvider.jsx';
+import WebGPUVideoScrollComponent from "../Components/home-videoScroll/WebGPUVideoScrollComponent.jsx";
 import { useScroll, useTransform } from 'framer-motion';
 import ArrowButton from '../Components/home-textReveal/ArrowButton';
 import TextReveal from '../Components/home-textReveal/TextReveal';

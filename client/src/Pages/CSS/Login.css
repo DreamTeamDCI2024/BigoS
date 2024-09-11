@@ -1,17 +1,20 @@
 .loginsignup{
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     padding-top: 44px;
 }
 .loginsignup-container{
     width: 580px;
     height: 600px;
-    background: white;
+    background: #efece7;
     margin: auto;
     padding: 40px 60px;
+    border-radius: 2%;
 }
 .loginsignup-container h1{
     margin: 20px 0px;
+    font-family: 'Rufina';
+    color: #454545;
 }
 
 .loginsignup-fields{
@@ -19,6 +22,7 @@
     flex-direction: column;
     gap: 30px;
     margin-top: 24px;
+    
 }
 .loginsignup-fields input{
     height: 72px;
@@ -28,6 +32,7 @@
     outline: none;
     color: #5c5c5c;
     font-size: 18px;
+    border-radius: 2%;
 }
 .loginsignup-container button{
     width: 580px;

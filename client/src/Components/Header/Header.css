@@ -36,8 +36,8 @@ button {
 }
 /* General Button Hover Effect */
 button:hover {
-    color: black; /* Change color on hover */
-    transform: scale(1.05); /* Slightly enlarge button */
+    color: #454545;
+    transform: scale(1.05); 
 }
 /* -----Burger menu----- */
 .menu {
@@ -70,7 +70,7 @@ button:hover {
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: white;
+  background-color: #efece7;
   transition-duration: .25s;
 }
 .menu_btn > span::before {
@@ -92,6 +92,7 @@ button:hover {
     margin: 0;
     padding: 80px 0;
     list-style: none;
+
     /* background-color: #ECEFF1;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2); */
     background-color: rgba(255, 255, 255, 0.2);
@@ -103,12 +104,14 @@ button:hover {
 .sidebar li{
     display: block;
     padding: 12px 24px;
-    color: #333;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
     transition-duration: .25s;
+
+
+
 }
 .sidebar li:hover{
     background-color: #CFD8DC;
@@ -117,7 +120,7 @@ button:hover {
     text-decoration: none;
 }
 .sidebar li a:link{
-    color: black;
+    color: #454545;
 }
 .sidebar li a:visited{
     color: black;
@@ -144,13 +147,15 @@ button:hover {
     left: 0;
 }
 .header:hover .menu_btn span {
-    background-color: black;
+    background-color: #454545;
 }
 .header:hover .menu_btn  span::before{
-    background-color: black;
+    background-color: #454545;
+    
 }
 .header:hover .menu_btn  span::after {
-    background-color: black;
+    background-color: #454545;
+    
 }
 .header.scrolled .menu_btn > span,
 .header.scrolled .menu_btn > span::before,
@@ -159,7 +164,7 @@ button:hover {
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: black;
+  background-color: #454545; 
   transition-duration: .25s;
 }
 /* -----Submenu----- */
@@ -195,7 +200,7 @@ button:hover {
 }
 /* -----Logo----- */
 .nav-logo{
-    /* border: 1px solid white; */
+
     border-radius: 50%;
     box-shadow:inset 1px 1px 4px 1px rgb(245, 243, 242);
     background-color: rgba(167, 167, 141, 0.3);
@@ -214,17 +219,17 @@ button:hover {
 }
 .nav-logo p{
     font-size: 24px;
-    color: white;
+    color: #efece7;
     text-decoration: none;
 }
 .nav-logo a{
     text-decoration: none;
 }
 .header:hover .nav-logo{
-    /* border: 1px solid black; */
+    border: 1px solid #454545;
 }
 .header:hover .nav-logo p {
-    color: black;
+    color: #454545;
 }
 .header.scrolled .nav-logo{
     color: black ;
@@ -232,10 +237,10 @@ button:hover {
     box-shadow: 2px 2px 4px rgb(207, 250, 114);
 }
 .header.scrolled .nav-logo p{
-    color: black ;
+    color: #454545;
 }
 .header.scrolled .menu_btn span::after{
-    background-color: black ;
+    background-color: #454545 ;
 }
 /* -----Login-cart section---- */
 .nav-login-cart{
@@ -251,13 +256,13 @@ button:hover {
     background: transparent;
 }
 .nav-icons{
-    color: white;
+    color: #efece7;
 }
 .header:hover .nav-icons {
-    color: black;
+    color: #454545;
 }
 .header.scrolled .nav-icons{
-    color: black ;
+    color: #454545 ;
 }
 .nav-login-cart button:active{
     color: red;

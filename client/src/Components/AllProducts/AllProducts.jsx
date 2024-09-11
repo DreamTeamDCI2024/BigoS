@@ -41,7 +41,7 @@ const handleCategoryChange = (category) => {
 
   return (
     <div className='all-products'>
-        <h1>All Products</h1>
+        <h1>Our Products</h1>
         <div className="image-category-switch">
         <div className="switch-track"></div>
         <button 

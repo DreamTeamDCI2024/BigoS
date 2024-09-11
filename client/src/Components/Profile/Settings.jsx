@@ -35,7 +35,7 @@ const Settings = () => {
     }
 
     const response = await axiosInstance.put(
-      '/user/update',
+      '/api/user/update',
       formData,
       {
         headers: {

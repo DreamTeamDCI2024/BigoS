@@ -1,5 +1,5 @@
 .cartitems{
-    margin: 100px 170px;
+    margin: 50px 170px;
     background-color: rgba(255, 255, 255, 0.664);
 }
 
@@ -11,8 +11,9 @@
 
 .cartitems-format-main{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
+    text-align: center;
     gap: 100px;
     padding: 10px 0px;
     color: #454545;
@@ -27,7 +28,7 @@
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
     gap: 55px;
-    padding: 10px 0px;
+    padding: 0px 0px;
     color: #454545;
 }
 
@@ -62,14 +63,14 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-right: 200px;
-    gap: 40px;
+    margin-right: 175px;
+    gap: 10px;
 }
 
 .cartitems-total-item{
     display: flex;
     justify-content: space-between;
-    padding: 15px 0px;
+    padding: 5px 0px;
 }
 
 .cartitems-total button{
@@ -107,7 +108,7 @@
 
 /* Modal Content */
 .modal-content {
-    background-color: #fff;
+    background-color: #e8c6c6;
     padding: 20px;
     border-radius: 5px;
     width: 700px;
@@ -119,7 +120,7 @@
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: #454545;
     float: right;
     font-size: 28px;
     font-weight: bold;
