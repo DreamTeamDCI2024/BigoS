@@ -6,16 +6,25 @@
     display: flex;
     justify-content: space-between;
     padding: 16px;
-    box-shadow: 0 1px 3px -2px white;
-    background-color: transparent;
+    /* box-shadow: 0 1px 3px -2px white; */
+    /* background-color: transparent; */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(1px);
+    border-right: 1px solid rgba(209, 213, 219, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     z-index: 1000;
     transition: background-color 0.3s ease;
+
 }
 .header.scrolled{
-    background-color: white ;
+    background-color: transparent ;
 }
 .header:hover{
-    background-color: white;
+    /* background-color: white; */
+        background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid rgba(209, 213, 219, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 /* -----Button Styles----- */
 button {
@@ -78,13 +87,17 @@ button:hover {
     visibility: hidden;
     top: 0;
     left: -100%;
-    width: 300px;
-    height: 100%;
+    width: 140px;
+    height: 100vh;
     margin: 0;
     padding: 80px 0;
     list-style: none;
-    background-color: #ECEFF1;
-    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+    /* background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2); */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid rgba(209, 213, 219, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition-duration: .25s;
 }
 .sidebar li{

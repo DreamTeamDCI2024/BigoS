@@ -34,7 +34,7 @@ const handleCategoryChange = (category) => {
     setTimeout(() => {
       setImageCategory(category);
       setFadeOut(false);
-    }, 900); 
+    }, 200); 
   }
   //setImageCategory(category);
 };

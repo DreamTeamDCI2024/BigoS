@@ -1,6 +1,7 @@
-import { LivingRoom } from '../Components/LivingRoom/LivingRoom';
-import Kitchen from '../Components/Kitchen/Kitchen';
-import Bedroom from '../Components/Bedroom/Bedroom';
+import { LivingRoom } from '../Components/Livingroom/LivingRoom';
+import Balcony from '../Components/Balcony/Balcony';
+import Bedroom from '../Components/Bedroom/BedRoom';
+import BathRoom from '../Components/Bathroom/BathRoom';
 import AllProducts from '../Components/AllProducts/AllProducts';
 
 
@@ -9,8 +10,9 @@ export const Shop = () => {
     <div className="shop">
             <AllProducts/>
             <LivingRoom />
-            <Kitchen/>
+            <Balcony/>
             <Bedroom/>
+            <BathRoom/>
         </div>
   )
 }
