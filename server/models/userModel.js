@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
 
-  username: {
+  name: {
     type: String,
     required: true,
     trim: true
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 
   phone: {
     type: String,
-    required: true,
+    required: false,
   },
 
   isAdmin: {
@@ -52,8 +52,28 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  image: String
-});
+  cartData:{
+    type: Object,
+  },
+
+  wishlist:{
+    type: Object,
+  },
+  
+  image: {
+    type: String,
+    required: false,
+  },
+  tokens: [{
+    token: {
+    type: String,
+    required: true
+      }
+    }]
+  }, {
+  timestamps: true
+  }
+);
 
 
 

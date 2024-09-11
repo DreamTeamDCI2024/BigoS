@@ -1,83 +1,152 @@
-import { useEffect, useState, useContext } from "react";
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { createOrder } from './createOrder.jsx';
 import axiosInstance from "../../Context/axiosInstanse.jsx";
-import { ShopContext } from "../../Context/ShopContext.jsx";
+import { loadStripe } from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+import Checkout from '../Checkout/Checkout.jsx';
 
-const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const { user } = useContext(ShopContext);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+const stripePromise = loadStripe('pk_test_51Ps9oxKc6TGOcmdDNqRgGIDY0qTbzxgDdqtEQ09ekUFvSMVelQSbaghFthc7OEAbhLGLfGWtiETwNYsnW6ZZw8zF00B0pHn5TU');
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axiosInstance.get("/api/orders/myorders");
-        if (response.data) {
-          setOrders(response.data);
-        }
-      } catch (err) {
-        console.error('Error fetching orders:', err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
+const Order = ({ orderItems, totalPrice, closeModal }) => {
+  const [shippingAddress, setShippingAddress] = useState({
+    street: '',
+    city: '',
+    zip: '',
+    country: '',
+    houseNumber: ''
+  });
+  const [paymentMethod, setPaymentMethod] = useState('Credit Card');
+  const [orderStatus, setOrderStatus] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [clientSecret, setClientSecret] = useState(null); // To store client secret for Stripe
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setShippingAddress(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const order = {
+      orderItems,
+      shippingAddress,
+      paymentMethod,
+      taxPrice: 10, 
+      shippingPrice: 5, 
+      totalPrice: totalPrice + 15
     };
-    fetchOrders();
-  }, []);
 
-  if (loading) {
-    return <div>Loading orders...</div>;
-  }
+    try {
+      const createdOrder = await createOrder(order);
+      setOrderStatus('Order created successfully. Proceeding to payment...');
+      console.log('Created order:', createdOrder);
+      
+      const paymentIntentResponse = await axiosInstance.post('/api/payments/create', {
+        orderId: createdOrder._id,
+        amount: createdOrder.totalPrice * 100, // Stripe expects amount in cents
+        currency: 'usd',
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
 
-  if (error) {
-    return <div>Error loading orders: {error.message}. Please try again later.</div>;
-  }
-
-  if (orders.length === 0) {
-    return <div>You have no orders.</div>;
-  }
+      const { clientSecret } = paymentIntentResponse.data;
+      setClientSecret(clientSecret); // Set the client secret for the Checkout component
+    } catch (error) {
+      console.error('Error creating order:', error);
+      setOrderStatus(`Error: ${error.response?.data?.message || 'Unable to create order'}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  Order.propTypes = {
+    orderItems: PropTypes.array.isRequired,
+    totalPrice: PropTypes.number.isRequired, 
+    closeModal: PropTypes.func.isRequired 
+  };
 
   return (
-    <div className="order-wrap">
-      {orders.map((order) => (
-        <div key={order._id} className="order-card">
-          <h2 style={{ fontSize: '14px', marginBottom: '10px' }}>Order ID: {order._id}</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
-            <div>
-              <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Shipping Address:</h3>
-              <p>{order.shippingAddress.street}</p>
-              <p>{order.shippingAddress.city}, {order.shippingAddress.zip}</p>
-              <p>{order.shippingAddress.country}</p>
-            </div>
-            <div>
-              <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Order Details:</h3>
-              <p>Payment Method: {order.paymentMethod}</p>
-              <p>Total Price: ${order.totalPrice.toFixed(2)}</p>
-            </div>
-          </div>
-          <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Order Items:</h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ backgroundColor: '#f0f0f0' }}>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Product</th>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Quantity</th>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {order.orderItems.map((item) => (
-                <tr key={item._id}>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>{item.product.name}</td>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>{item.quantity}</td>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>${item.price.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="order">
+      <h2>Create Order</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <h3>Shipping Address</h3>
+          <input
+            type="text"
+            name="street"
+            value={shippingAddress.street}
+            onChange={handleInputChange}
+            placeholder="Street"
+            required
+          />
+          <input
+            type="text"
+            name="number"
+            value={shippingAddress.houseNumber}
+            onChange={handleInputChange}
+            placeholder="House №"
+            required
+          />
+          <input
+            type="text"
+            name="city"
+            value={shippingAddress.city}
+            onChange={handleInputChange}
+            placeholder="City"
+            required
+          />
+          <input
+            type="text"
+            name="zip"
+            value={shippingAddress.zip}
+            onChange={handleInputChange}
+            placeholder="ZIP Code"
+            required
+          />
+          <input
+            type="text"
+            name="country"
+            value={shippingAddress.country}
+            onChange={handleInputChange}
+            placeholder="Country"
+            required
+          />
         </div>
-      ))}
+        <div>
+          <h3>Payment Method</h3>
+          <select
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          >
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+          </select>
+        </div>
+        <div>
+          <h3>Order Summary</h3>
+          <p>Total: ${totalPrice}</p>
+          <p>Tax: $10</p>
+          <p>Shipping: $5</p>
+          <p>Grand Total: ${totalPrice + 15}</p>
+        </div>
+        <button type="submit" disabled={isLoading || clientSecret}>
+          {isLoading ? 'Processing...' : 'Place Order'}
+        </button>
+      </form>
+      {orderStatus && <p className={orderStatus.includes('Error') ? 'error' : 'success'}>{orderStatus}</p>}
+
+      {clientSecret && (
+        <Elements stripe={stripePromise}>
+          <Checkout clientSecret={clientSecret} closeModal={closeModal} />
+        </Elements>
+      )}
     </div>
   );
 };
 
-export default Orders;
+export default Order;

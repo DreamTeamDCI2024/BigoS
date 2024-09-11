@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // CREATE USER
 export const signUp = async (req, res) => {
   try {
-    const { username, email, password, phone, isAdmin, street, apartment, zip, city, country, image } = req.body;
+    const { name, email, password, phone, isAdmin, street, apartment, zip, city, country, image } = req.body;
 
 
     // Check If The Input Fields are Valid
@@ -31,7 +31,7 @@ export const signUp = async (req, res) => {
     
     // Save The User To The Database
     const newUser = new User({
-      username,
+      name,
       email,
       password: hashedPassword,
       phone,
@@ -44,9 +44,35 @@ export const signUp = async (req, res) => {
       image
     });
     await newUser.save();
-    return res
-      .status(201)
-      .json({ message: "User Created Successfully", newUser });
+
+    //create a jwb
+    const payload = {
+      newUser: {
+        id: newUser._id,
+        name: newUser.name,
+      },
+    };
+    
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" },
+      (err, token) => {
+        if (err) {
+          return res.status(500).json({ message: "Token creation failed" });
+        }
+        // Send both the token and user information in the response
+        res.status(201).json({
+          message: "User Created Successfully",
+          token,
+          newUser: {
+            id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+          },
+        });
+      }
+    );
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Error creating user" });
@@ -79,13 +105,13 @@ export const login = async (req, res) => {
     }
     // Generate JWT Token
     const token = jwt.sign(
-      { user: user._id, username: user.username },
+      { user: user._id, name: user.name },
       process.env.JWT_SECRET || "1234!@#%<{*&)",
       { expiresIn: "1h" }
     );
     return res
       .status(200)
-      .json({ message: "Login Successful", data: user.username, token });
+      .json({ message: "Login Successful", data: user.name, token });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Error during login" });

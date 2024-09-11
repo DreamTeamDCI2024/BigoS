@@ -13,7 +13,10 @@ const auth = (req, res, next) => {
         const tokenValue = token.startsWith("Bearer") ? token.slice(7) : token;
         const decoded = jwt.verify(tokenValue, process.env.JWT_SECRET || "1234!@#%<{*&)");
         console.log("Decoded token:", decoded);
-        req.user = { id: decoded.user, name: decoded.name };
+        req.user = {
+            id: decoded.newUser.id,  
+            name: decoded.newUser.name, 
+        };
         next();
     } catch (error) {
         console.error("Invalid token:", error);

@@ -4,6 +4,7 @@ import { UserContext } from '../Context/UserContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import TermsOfuse from '../Components/TermsOfuse/TermsOfuse.jsx';
 
 const Login = () => {
     const [state, setState] = useState("Login");
@@ -11,6 +12,7 @@ const Login = () => {
     const [error, setError] = useState("");
     const { login, signUp } = useContext(UserContext);
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
@@ -76,10 +78,13 @@ const Login = () => {
                     : <p className="loginsignup-login">Create an account? <span onClick={() => setState("Sign Up")}>Click here</span></p>}
                 <div className="loginsignup-agree">
                     <input type="checkbox" name='' id='' />
-                    <p>By continuing, I agree to the terms of use & privacy policy</p>
+                    <p>By continuing, I agree to the <span onClick={() => setShowTermsModal(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use & privacy policy</span></p>
                 </div>
                 {error && <p className="error">{error}</p>}
             </div>
+            <TermsOfuse show={showTermsModal} onClose={() => setShowTermsModal(false)} title="Terms of Use">
+                <p>[Insert your Terms of Use content here]</p>
+            </TermsOfuse>
         </div>
     );
 }

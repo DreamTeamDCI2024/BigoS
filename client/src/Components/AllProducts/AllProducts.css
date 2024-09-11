@@ -4,7 +4,10 @@
     align-items: center;
     gap: 10px;
     height: 90vh;
-    
+}
+.all-products h1{
+  font-family: 'Rufina';
+  color: #454545;
 }
 .all-products-item{
     margin: auto;

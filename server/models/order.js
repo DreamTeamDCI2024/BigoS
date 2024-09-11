@@ -24,6 +24,7 @@ const orderSchema = new mongoose.Schema({
     },
   ],
   shippingAddress: {
+    houseNumber: { type: String, required: false},
     street: { type: String, required: true },
     city: { type: String, required: true },
     zip: { type: String, required: true },
@@ -56,7 +57,7 @@ const orderSchema = new mongoose.Schema({
   },
   isPaid: {
     type: Boolean,
-    required: true,
+    required: false,
     default: false,
   },
 
@@ -71,7 +72,7 @@ const orderSchema = new mongoose.Schema({
 
   isDelivered: {
     type: Boolean,
-    required: true,
+    required: false,
     default: false,
   },
 

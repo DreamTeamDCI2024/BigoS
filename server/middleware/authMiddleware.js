@@ -13,7 +13,11 @@ export const protect = async (req, res, next) => {
     try {
       // Get the token from the header
       token = req.headers.authorization.split(' ')[1];
-console.log(token)
+      console.log("Token received:", token)
+
+      if (!token) {
+        throw new Error('Token is empty after splitting');
+      }
       // Verify the token
       const decoded = jwt.verify(token, process.env.JWT_SECRET || '1234!@#%<{*&)');
 

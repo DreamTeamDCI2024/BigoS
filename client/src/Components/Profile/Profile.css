@@ -22,8 +22,10 @@
 
 .order-wrap{
     width: 500px;
+    max-height: 500px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
+    overflow-y: auto;
 }
 
 .order-card{

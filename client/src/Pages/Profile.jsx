@@ -22,7 +22,7 @@ const Profile = () => {
           }
           const response = await axiosInstance.get('/api/user/profile', {
             headers: {
-              'Authorization': `Bearer ${token}`
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
           });
         
@@ -46,7 +46,7 @@ const Profile = () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axiosInstance.put(
-        "/user/update",
+        "/api/user/update",
         data,
         {
           headers: {
