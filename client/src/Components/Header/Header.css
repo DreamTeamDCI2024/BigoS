@@ -195,8 +195,15 @@ button:hover {
 }
 /* -----Logo----- */
 .nav-logo{
-    border: 1px solid white;
+    /* border: 1px solid white; */
     border-radius: 50%;
+    box-shadow:inset 1px 1px 4px 1px rgb(245, 243, 242);
+    background-color: rgba(167, 167, 141, 0.3);
+    padding: 0.2rem;
+}
+.nav-logo img{
+    width: 5.0rem;
+    height: 5.0rem;
 }
 .nav-logo button{
     border: none;
@@ -214,14 +221,15 @@ button:hover {
     text-decoration: none;
 }
 .header:hover .nav-logo{
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .header:hover .nav-logo p {
     color: black;
 }
 .header.scrolled .nav-logo{
     color: black ;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    box-shadow: 2px 2px 4px rgb(207, 250, 114);
 }
 .header.scrolled .nav-logo p{
     color: black ;
@@ -280,6 +288,7 @@ button:hover {
     background: red;
     color: white;
 }
+        
 /* ----Screens ---*/
 @media(max-width:1280px){
     .header{

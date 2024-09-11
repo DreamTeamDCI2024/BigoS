@@ -1,16 +1,6 @@
-.main-container{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.main-container button{
-    border: 1px solid white;
-    padding: 20px 40px;
-    font-size: 22px;
-}
-.main-container p, h3{
-    color: white;
+.main{
+    background-image: url('./images/homeBackground.webp') ;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
