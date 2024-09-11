@@ -87,41 +87,97 @@ const Settings = () => {
   
   return (
     <div className='settings'>
-        <form onSubmit={handleSubmit}>
-        <label htmlFor="Name">
-          Name<input type="text" placeholder="Name" name='name' value={formData.name || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="">
-          Email<input type="text" placeholder="email" name='email' value={formData.email || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="">
-          Phone<input type="text" placeholder="Phone number" name='phone' value={formData.phone || ""} onChange={handleChange}/>
-         
-        </label>
-        <label htmlFor="country">
-          Country<input type="text" placeholder="Country" name='country' value={formData.country || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="">
-          City<input type="text" placeholder="City" name='city' value={formData.city || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="street">
-          Street<input type="text" placeholder="Street" name='street' value={formData.street || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="">
-          House №<input type="text" placeholder="House number" name='apartment' value={formData.apartment || ""} onChange={handleChange}/>
-          
-        </label>
-        <label htmlFor="">
-          ZIP<input type="text" placeholder="ZIP code" name='zip' value={formData.zip || ""} onChange={handleChange}/>
-        
-        </label>
-        <button type="submit" className='settings-update-btn'>Update</button>
-        </form>
+        <form onSubmit={handleSubmit} className="settings-form">
+  <div className="form-group">
+    <div className='label'><label htmlFor="name">Name</label></div>
+    <input
+      type="text"
+      placeholder="Name"
+      name="name"
+      value={formData.name || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="email">Email</label></div>
+    <input
+      type="email"
+      placeholder="Email"
+      name="email"
+      value={formData.email || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="phone">Phone</label></div>
+    <input
+      type="tel"
+      placeholder="Phone number"
+      name="phone"
+      value={formData.phone || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="country">Country</label></div>
+    <input
+      type="text"
+      placeholder="Country"
+      name="country"
+      value={formData.country || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="city">City</label></div>
+    <input
+      type="text"
+      placeholder="City"
+      name="city"
+      value={formData.city || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="street">Street</label></div>
+    <input
+      type="text"
+      placeholder="Street"
+      name="street"
+      value={formData.street || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="apartment">House №</label></div>
+    <input
+      type="text"
+      placeholder="House number"
+      name="apartment"
+      value={formData.apartment || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <div className="form-group">
+    <div className='label'><label htmlFor="zip">ZIP</label></div>
+    <input
+      type="text"
+      placeholder="ZIP code"
+      name="zip"
+      value={formData.zip || ""}
+      onChange={handleChange}
+    />
+  </div>
+
+  <button type="submit" className="settings-update-btn">Update</button>
+</form>
     </div>
   )
 }

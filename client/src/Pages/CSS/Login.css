@@ -6,7 +6,7 @@
 .loginsignup-container{
     width: 580px;
     height: 600px;
-    background: #efece7;
+    background: rgba(255, 255, 255, 0.453);
     margin: auto;
     padding: 40px 60px;
     border-radius: 2%;

@@ -1,17 +1,30 @@
-import { useState, useEffect  } from "react";
-import { NavLink, Navigate, Outlet } from "react-router-dom";
+import { useState, useEffect, useContext  } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import "./CSS/Profile.css";
 import FileBase64 from 'react-file-base64';
 import axiosInstance from "../Context/axiosInstanse.jsx";
+import Orders from '../Components/Profile/Orders.jsx';
+import Settings from "../Components/Profile/Settings.jsx";
+import {UserContext} from '../Context/UserContext.jsx'
+//import Logout from '../Components/Profile/Logout.jsx'
 
 const Profile = () => {
     
-  const isActive = ({isActive}) => (
-    {backgroundColor: isActive ? "antiquewhite" : "" }
-  );
   const isLoggedIn = true;
   const [user, setUser] = useState(null); //for storing user data
   const [image, setImage] = useState("");
+  const [openIndex, setOpenIndex] = useState(null);
+  const {logout} = useContext(UserContext);
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
+  const handleClick = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -95,26 +108,31 @@ const Profile = () => {
                 setImage(base64);
           }}
           />
-          <button onClick={putRequestHandler}>Update</button>
+          <button onClick={putRequestHandler}>Update Photo</button>
           </div>
         </div>
         <div className="credentials">
-          <nav className="left-c">
-            <NavLink to="/profile/orders" style={isActive}>
-              My Orders
-            </NavLink>
-            <NavLink to="/profile/settings" style={isActive}>
-              Settings
-            </NavLink>
-            
-            <NavLink to="/profile/logout" style={isActive}>
-              Logout
-            </NavLink>
-          </nav>
-          <div className="right-c">
-          <Outlet context={user}/>
+      <ul>
+        <li onClick={() => handleClick(0)}>
+          My Orders
+          <hr />
+          <div className={`credentials-info ${openIndex === 0 ? 'open' : ''}`}>
+            <Orders />
           </div>
-        </div>
+        </li>
+        <li onClick={() => handleClick(1)}>
+          My Information
+          <hr />
+          <div className={`credentials-info ${openIndex === 1 ? 'open' : ''}`}>
+            <Settings />
+          </div>
+        </li>
+        <li onClick={handleLogout}>
+          Logout
+          
+        </li>
+      </ul>
+    </div>
       </div>
     </div>
   );

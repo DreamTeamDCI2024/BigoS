@@ -89,7 +89,13 @@
     width: 150px;
     height: 100px;
     object-fit: cover;
+    border-radius: 2%;
+    overflow: hidden;
+    -webkit-box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
+    -moz-box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
+    box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
 }
+
 
 /* The Modal (background) */
 .modal {
