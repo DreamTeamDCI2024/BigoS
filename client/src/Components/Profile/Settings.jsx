@@ -4,7 +4,7 @@ import axiosInstance from '../../Context/axiosInstanse.jsx';
 
 const Settings = () => {
   const user = useOutletContext();
-
+  
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -66,7 +66,8 @@ const Settings = () => {
             'Authorization': `Bearer ${token}`
           }
         });
-  
+        console.log("settings2", response);
+        
         setFormData({
           name: response.data.name,
           email: response.data.email,

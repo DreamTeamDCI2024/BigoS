@@ -21,7 +21,7 @@
 
 .item img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    height: auto; 
     transition: transform 0.5s ease; /* Smooth scaling effect */
 }
 
