@@ -6,7 +6,6 @@ import axiosInstance from "../Context/axiosInstanse.jsx";
 import Orders from '../Components/Profile/Orders.jsx';
 import Settings from "../Components/Profile/Settings.jsx";
 import {UserContext} from '../Context/UserContext.jsx'
-//import Logout from '../Components/Profile/Logout.jsx'
 
 const Profile = () => {
     
@@ -55,9 +54,11 @@ const Profile = () => {
   const putRequestHandler = async (e) => {
     e.preventDefault();
 
-    const data = { image };
     const token = localStorage.getItem('token');
+    const data = { image };
     try {
+      setUser({...user, image});
+      console.log('Image before request:', image);
       const response = await axiosInstance.put(
         "/api/user/update",
         data,
@@ -70,6 +71,9 @@ const Profile = () => {
       );
       setUser(response.data); // Update user data in state
       setImage(response.data.image); // Update image in state
+      console.log('Updated image after request:', response.data.image);
+      
+      alert("Profile photo updated successfully!");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert("Unauthorized: Please log in again.");
@@ -124,10 +128,12 @@ const Profile = () => {
           My Information
           <hr />
           <div className={`credentials-info ${openIndex === 1 ? 'open' : ''}`}>
-            <Settings />
+          <div onClick={(e) => e.stopPropagation()}>
+      <Settings />
+    </div>
           </div>
         </li>
-        <li onClick={handleLogout}>
+        <li className="logout-item" onClick={handleLogout}>
           Logout
           
         </li>

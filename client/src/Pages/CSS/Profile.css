@@ -183,5 +183,13 @@ li hr{
     box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
     background: green;
     font-size: 16px;
+    border-radius: 5px;
     padding: 5px;
+    color: #272727;
+}
+
+
+/*---Logout---*/
+.logout-item:hover{
+    background-color: red;
 }

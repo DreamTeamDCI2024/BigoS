@@ -13,7 +13,6 @@ import BedRoom from './Components/BedRoom/Bedroom.jsx';
 import BathRoom from './Components/Bathroom/BathRoom.jsx';
 import { UserContextProvider } from './Context/UserContext.jsx';
 import Profile from './Pages/Profile.jsx';
-import Logout from './Components/Profile/Logout.jsx';
 import Settings from './Components/Profile/Settings.jsx';
 import Orders from './Components/Profile/Orders.jsx';
 import AllProducts from './Components/AllProducts/AllProducts.jsx';
@@ -45,7 +44,6 @@ function App() {
         <Route path='/profile' element={<Profile/>}>
           <Route path='/profile/orders' element={<Orders/>}/>
           <Route path='/profile/settings' element={<Settings/>}/>
-          <Route path='/profile/logout' element={<Logout/>}/>
         </Route>
         
         

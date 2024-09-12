@@ -10,7 +10,7 @@ body {
   margin: 0;
   place-items: center;
   min-width: 320px;
-  /* background: rgba(161, 117, 63, 0.843); */
+  background: rgba(134, 127, 120, 0.843); 
   font-family: 'Poppins';
   width: 100%;
 }

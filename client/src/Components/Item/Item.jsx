@@ -25,7 +25,7 @@ const Item = (product) => {
         <Link to={`/products/${product.id}`}><img src={product.image} alt="" /></Link>
         <p>{product.name}</p>
         <div className="price">${product.price}</div>
-        <div className='adding'>
+        <div className='adding-item'>
           <button className='add-to-cart' onClick={handleButtonAddToCart}>Add to cart</button>
           <FontAwesomeIcon className='add-to-wishlist' icon={isWishlisted ? fasHeart : farHeart } onClick={()=> toggleWishlist(product.id)} />
         </div>

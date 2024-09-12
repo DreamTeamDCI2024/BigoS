@@ -63,15 +63,15 @@ const ProductDisplay = () => {
         <div className="product-display-right">
             <h1>{product.name}</h1>
             <div className="product-display-price">Price: ${product.price}</div>
-            <div className='product-display-materials'>Materials: {product.materials}</div>
-            <div className='product-categories'>Categories: {product.categories.join(', ')}</div>
+            <div className='product-display-materials'><span>Materials: </span>{product.materials}</div>
+            <div className='product-categories'><span>Categories: </span>{product.categories.join(', ')}</div>
             <div className="product-display-description"><p>{product.description}</p></div>
-            <div className='product-display-room'>Room: {product.room}</div>
+            <div className='product-display-room'><span>Room: </span>{product.room}</div>
                     <div className='product-display-dimensions'>
-                        Dimensions: {product.dimensions.length}L x {product.dimensions.width}W x {product.dimensions.height}H cm
+                        <span>Dimensions: </span>{product.dimensions.length}L x {product.dimensions.width}W x {product.dimensions.height}H cm
                     </div>
                     <div className="product-display-description"><p>{product.description}</p></div>
-                    <div className="product-display-stock">In Stock: {product.stock}</div>
+                    <div className="product-display-stock"><span>In Stock: </span>{product.stock}</div>
             <div className="adding">
                 <button className='cart-btn' onClick={handleButtonAddToCart}>Add to cart</button>
                 <button className='wishlist-btn' onClick={()=> toggleWishlist(product._id)}>

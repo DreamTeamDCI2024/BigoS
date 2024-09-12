@@ -62,10 +62,10 @@
     border-radius: 2%;
 }
 
-.adding{
+.adding-item{
     display: flex;
     margin: 10px;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .add-to-wishlist{
