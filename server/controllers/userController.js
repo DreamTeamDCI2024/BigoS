@@ -6,34 +6,11 @@ import jwt from "jsonwebtoken";
 // CREATE USER
 export const signUp = async (req, res) => {
   try {
-    const { name, email, password, phone, isAdmin, street, apartment, zip, city, country, image } = req.body;
-
-
-    // Check If The Input Fields are Valid
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Please Input Email and Password" });
-    }
-
-
-    // Check If User Exists In The Database
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User Already Exists" });
-    }
-
-
-    // Hash The User's Password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    
-    // Save The User To The Database
-    const newUser = new User({
+    const {
       name,
       email,
-      password: hashedPassword,
+      password,
+      image,
       phone,
       isAdmin,
       street,
@@ -41,46 +18,49 @@ export const signUp = async (req, res) => {
       zip,
       city,
       country,
-      image
-    });
-    await newUser.save();
+    } = req.body;
 
-    //create a jwb
+    let existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "The email already exists" });
+    }
+    let cart = {};
+    for (let i = 0; i < 300; i++) {
+      cart[i] = 0;
+    }
+    const user = new User({
+      name,
+      email,
+      password,
+      image,
+      isAdmin,
+      phone,
+      street,
+      apartment,
+      zip,
+      city,
+      country,
+    });
+
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save();
+
+    // Create a JWT
     const payload = {
-      newUser: {
-        id: newUser._id,
-        name: newUser.name,
-      },
+      user: user._id,
+      name: user.name,
     };
-    
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: "24h" },
-      (err, token) => {
-        if (err) {
-          return res.status(500).json({ message: "Token creation failed" });
-        }
-        // Send both the token and user information in the response
-        res.status(201).json({
-          message: "User Created Successfully",
-          token,
-          newUser: {
-            id: newUser._id,
-            name: newUser.name,
-            email: newUser.email,
-          },
-        });
-      }
-    );
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET || "1234!@#%<{*&)", { expiresIn: "24h" });
+
+    res.status(201).json({ message: "Signup Successful", data: user.name, token });
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ message: "Error creating user" });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
-
-
 
 
 // LOGIN
@@ -111,7 +91,7 @@ export const login = async (req, res) => {
     );
     return res
       .status(200)
-      .json({ message: "Login Successful", data: user.name, token });
+      .json({ message: "Login Successful", data: user.name, token }); //should be like here
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Error during login" });
