@@ -1,0 +1,96 @@
+.contact {
+    margin: 80px auto;
+    max-width: 90%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  
+  .contact-col {
+    flex-basis: 48%;
+    color: #2b40b6;
+    font-size: 16px;
+    /* font-weight: bolder; */
+  }
+  
+  .contact-col h3 {
+    color: #381f00;
+    font-weight: 500;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .contact-col h3 img {
+    width: 35px;
+    margin-left: 10px;
+  }
+  
+  .contact-col p {
+    max-width: 450px;
+    list-style: 0.3;
+    margin-bottom: 25px;
+  }
+  
+  .contact-col ul li {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .contact-col ul li img {
+    width: 25px;
+    margin-right: 5px;
+   margin-left: 0;
+  }
+  
+  .contact form input,
+  .contact form textarea {
+    display: block;
+    width: 100%;
+    background: #ebecfe;
+    padding: 15px;
+    border: 0;
+    outline: 0;
+    margin-bottom: 5px;
+    resize: none;
+  }
+  
+  .contact-col label {
+      font-size: larger;
+     display: block;
+     margin-bottom: 5px;
+      font-style: italic;
+  }
+  
+  
+  .btn {
+      padding: 10px 20px;  
+      font-size: 16px;     
+      border: none;        
+      border-radius: 50px;  
+      cursor: pointer;     
+      transition: background-color 0.3s ease; 
+    }
+    
+  
+    .dark-btn {
+      background-color: #700e0e;  
+      color: rgb(255, 255, 255);             
+    }
+    
+   
+    .dark-btn:hover {
+      background-color: #555;   
+    }
+    
+    
+    .dark-btn:active {
+      background-color: #222;
+    }
+    
+    .contact-col span {
+      display: block;
+      margin: 20px 0;
+    }
