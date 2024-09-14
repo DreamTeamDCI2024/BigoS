@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import "./CSS/Profile.css";
-import FileBase64 from "react-file-base64";
+import { useDropzone } from "react-dropzone"; // Importing react-dropzone
 import axiosInstance from "../Context/axiosInstanse.jsx";
 import Orders from "../Components/Profile/Orders.jsx";
 import Settings from "../Components/Profile/Settings.jsx";
@@ -9,7 +9,7 @@ import { UserContext } from "../Context/UserContext.jsx";
 
 const Profile = () => {
   const isLoggedIn = true;
-  const [user, setUser] = useState(null); //for storing user data
+  const [user, setUser] = useState(null); // for storing user data
   const [image, setImage] = useState("");
   const [openIndex, setOpenIndex] = useState(null);
   const { logout } = useContext(UserContext);
@@ -49,6 +49,33 @@ const Profile = () => {
     };
     fetchUserData();
   }, []);
+
+  // function to to conver to Base64
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  // configuring react-dropzone
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: 'image/*',
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        try {
+          const base64 = await getBase64(file);
+          setImage(base64); // Actualiza el estado con la imagen en base64
+        } catch (error) {
+          console.error("Error al convertir el archivo a base64:", error);
+        }
+      }
+    },
+    multiple: false,
+  });
 
   const putRequestHandler = async (e) => {
     e.preventDefault();
@@ -116,16 +143,17 @@ const Profile = () => {
             </div>
           )}
 
-          <div className="input">
-            <FileBase64
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) => {
-                setImage(base64);
-              }}
-            />
-            <button onClick={putRequestHandler}>Update Photo</button>
+          {/*  Dropzone area */}
+          <div {...getRootProps()} style={{ border: "2px dashed #ccc", padding: "20px", textAlign: "center", cursor: "pointer" }}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop the image here...</p>
+            ) : (
+              <p>Drag 'n' drop an image here, or click to select one</p>
+            )}
           </div>
+
+          <button onClick={putRequestHandler}>Update Photo</button>
         </div>
         <div className="credentials">
           <ul>
