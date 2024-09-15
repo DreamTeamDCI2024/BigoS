@@ -29,6 +29,7 @@
 .empty-wishlist {
     text-align: center;
     margin-top: 50px;
+    min-height: 100%;
 }
 .shop-link {
     display: inline-block;

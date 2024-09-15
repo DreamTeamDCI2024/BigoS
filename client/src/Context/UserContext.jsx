@@ -39,7 +39,7 @@ export function UserContextProvider({children}) {
 
     const login = async (email, password) => {
         try {
-            const response = await axiosInstance.post('/user/login', { email, password });
+            const response = await axiosInstance.post('/api/user/login', { email, password });
             localStorage.setItem('token', response.data.token);
             setUser(response.data.user); // Assuming the response includes user data
             setIsAuthenticated(true);

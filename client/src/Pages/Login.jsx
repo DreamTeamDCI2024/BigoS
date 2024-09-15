@@ -13,6 +13,7 @@ const Login = () => {
     const { login, signUp } = useContext(UserContext);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [showTermsModal, setShowTermsModal] = useState(false);
+    const [agreeTerms, setAgreeTerms] = useState(false);
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
@@ -22,6 +23,10 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (state === "Sign Up" && !agreeTerms) {
+            setError("Please agree to the terms of use & privacy policy");
+            return;
+        }
         try {
             if (state === "Login") {
                 await login(formData.email, formData.password);
@@ -35,14 +40,10 @@ const Login = () => {
         } catch (error) {
             console.error(`${state} error`, error);
             if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
                 setError(error.response.data.message || `${state} failed: ${error.response.status}`);
             } else if (error.request) {
-                // The request was made but no response was received
                 setError(`${state} failed: No response received from server`);
             } else {
-                // Something happened in setting up the request that triggered an Error
                 setError(`${state} failed: ${error.message}`);
             }
         }
@@ -85,18 +86,24 @@ const Login = () => {
                 {state === "Sign Up"
                     ? <p className="loginsignup-login">Already have an account? <span onClick={() => setState("Login")}>Login</span></p>
                     : <p className="loginsignup-login">Create an account? <span onClick={() => setState("Sign Up")}>Click here</span></p>}
-                <div className="loginsignup-agree">
-                    <input type="checkbox" name='' id='' />
-                    <p>By continuing, I agree to the <span onClick={() => setShowTermsModal(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use & privacy policy</span></p>
-                </div>
+                {state === "Sign Up" && (
+                    <div className="loginsignup-agree">
+                        <input 
+                            type="checkbox" 
+                            checked={agreeTerms}
+                            onChange={(e) => setAgreeTerms(e.target.checked)}
+                        />
+                        <p>By continuing, I agree to the <span onClick={() => setShowTermsModal(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use & privacy policy</span></p>
+                    </div>
+                )}
                 {error && <p className="error">{error}</p>}
             </div>
             <TermsOfuse show={showTermsModal} onClose={() => setShowTermsModal(false)} title="Terms of Use">
-                <p>[Insert your Terms of Use content here]</p>
+                <p></p>
             </TermsOfuse>
         </div>
     );
-}
+};
 
 export default Login;
 

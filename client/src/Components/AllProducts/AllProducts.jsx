@@ -72,6 +72,7 @@ const handleCategoryChange = (category) => {
           />
         ))}
         </div>
+        
     </div>
   )
 }
