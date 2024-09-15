@@ -19,36 +19,38 @@ import AllProducts from './Components/AllProducts/AllProducts.jsx';
 import ShopContextProvider from './Context/ShopContext.jsx';
 import ProductDisplay from './Components/ProductDisplay/ProductDisplay.jsx';
 import RoomPreview from './Components/RoomPreview/RoomPreview.jsx';
+import Footer from './Components/Footer/Footer.jsx';
+//import Footer from './Components/Footer/Footer.jsx';
 
 function App() {
   return (
-    <div>
+    <div className='page-container'>
       <UserContextProvider>
       <ShopContextProvider>
       <BrowserRouter>
       <Header/>
-      <Routes>
-        <Route path='/' element={<Homepage/>}/>
-        <Route path='/about' element={<About/>}/>
-          <Route path='/gallery' element={<RoomPreview/>}/>
-          <Route path='/shop/all-products' element={<AllProducts/>}/>
-          <Route path='/shop/living-room' element={<LivingRoom/>}/>
-          <Route path='/shop/balcony' element={<Balcony/>}/>
-          <Route path='/shop/bedroom' element={<BedRoom/>}/>
-          <Route path='/shop/bathroom' element={<BathRoom/>}/>
-        <Route path='/products/:id' element={<ProductDisplay/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/wishlist' element={<Wishlist/>}/>
-        <Route path='/profile' element={<Profile/>}>
-          <Route path='/profile/orders' element={<Orders/>}/>
-          <Route path='/profile/settings' element={<Settings/>}/>
-        </Route>
-        
-        
-          
-      </Routes>
+      <main className="content-wrap">
+              <Routes>
+                <Route path='/' element={<Homepage />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/gallery' element={<RoomPreview />} />
+                <Route path='/shop/all-products' element={<AllProducts />} />
+                <Route path='/shop/living-room' element={<LivingRoom />} />
+                <Route path='/shop/balcony' element={<Balcony />} />
+                <Route path='/shop/bedroom' element={<BedRoom />} />
+                <Route path='/shop/bathroom' element={<BathRoom />} />
+                <Route path='/products/:id' element={<ProductDisplay />} />
+                <Route path='/contact' element={<Contact />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route path='/wishlist' element={<Wishlist />} />
+                <Route path='/profile' element={<Profile />}>
+                  <Route path='/profile/orders' element={<Orders />} />
+                  <Route path='/profile/settings' element={<Settings />} />
+                </Route>
+              </Routes>
+            </main>
+      <Footer/>
       </BrowserRouter>
       </ShopContextProvider>
       </UserContextProvider>

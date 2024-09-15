@@ -45,9 +45,8 @@ button:hover {
     align-items: center;
     gap: 45px;
 }
-.menu button:active{
-    color: red;
-}
+
+
 /* -----Sidebar----- */
 #menu_toggle {
     opacity: 0;
@@ -87,7 +86,7 @@ button:hover {
     visibility: hidden;
     top: 0;
     left: -100%;
-    width: 140px;
+    width: 160px;
     height: 100vh;
     margin: 0;
     padding: 80px 0;
@@ -95,7 +94,7 @@ button:hover {
 
     /* background-color: #ECEFF1;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2); */
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.351);
     backdrop-filter: blur(8px);
     border-right: 1px solid rgba(209, 213, 219, 0.3);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -104,17 +103,19 @@ button:hover {
 .sidebar li{
     display: block;
     padding: 12px 24px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppin', sans-serif;
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
     transition-duration: .25s;
-
+    margin-top: 10%;
 
 
 }
 .sidebar li:hover{
-    background-color: #CFD8DC;
+    background-color: #efece7;
+    border-radius: 5px;
+    cursor: pointer;
 }
 .sidebar li a{
     text-decoration: none;
@@ -129,7 +130,7 @@ button:hover {
     color: black;
 }
 .sidebar li a:active{
-    color: red;
+    color: #454545;
 }
 #menu_toggle:checked ~ .menu_btn > span {
     transform: rotate(45deg);
@@ -159,7 +160,7 @@ button:hover {
 }
 .header.scrolled .menu_btn > span,
 .header.scrolled .menu_btn > span::before,
-.header.scrolled .menu_btn > span::after {
+.header.scrolled .menu_btn > span::after{
   display: block;
   position: absolute;
   width: 100%;
@@ -168,6 +169,7 @@ button:hover {
   transition-duration: .25s;
 }
 /* -----Submenu----- */
+/*
 .submenu-container {
     position: relative;
 }
@@ -198,9 +200,10 @@ button:hover {
 .submenu li:hover {
     background-color: #CFD8DC;
 }
+*/
 /* -----Logo----- */
 .nav-logo{
-
+    
     border-radius: 50%;
     box-shadow:inset 1px 1px 4px 1px rgb(245, 243, 242);
     background-color: rgba(167, 167, 141, 0.3);
@@ -209,6 +212,7 @@ button:hover {
 .nav-logo img{
     width: 5.0rem;
     height: 5.0rem;
+    
 }
 .nav-logo button{
     border: none;
@@ -217,17 +221,11 @@ button:hover {
     cursor: pointer;
     background: transparent;
 }
-.nav-logo p{
-    font-size: 24px;
-    color: #efece7;
-    text-decoration: none;
-}
+
 .nav-logo a{
     text-decoration: none;
 }
-.header:hover .nav-logo{
-    border: 1px solid #454545;
-}
+
 .header:hover .nav-logo p {
     color: #454545;
 }
@@ -299,11 +297,38 @@ button:hover {
     .header{
         width: 100%;
     }
-    .navbar{
-        padding: 12px 50px;
+    .nav-login-cart{
+        display: flex;
+        align-items: center;
+        gap: 35px;
         
     }
-    .nav-logo p{
-        font-size: 26px;
+    
+}
+
+@media(max-width:880px){
+    .header{
+        width: 100vw;
     }
+    .nav-login-cart{
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        
+    }
+    
+}
+
+@media(max-width:385px){
+    .header{
+        width: 100%;
+    }
+    .nav-login-cart{
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-right: 20px;
+        
+    }
+    
 }
