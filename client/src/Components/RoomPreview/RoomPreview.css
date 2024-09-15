@@ -6,8 +6,8 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 0; /* Menor que el z-index del header */
-    padding-top: 80px; /* Ajusta esto según la altura de tu header */
+    z-index: -10; /* Menor que el z-index del header */
+    padding-top: 0px; /* Ajusta esto según la altura de tu header */
   }
   
   .room-images {

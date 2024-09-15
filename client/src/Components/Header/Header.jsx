@@ -157,10 +157,13 @@ const Header = () => {
                     <Link to="/shop/living-room">Living room</Link>
                   </li>
                   <li onClick={() => handleMenuItemClick("products")}>
-                    <Link to="/shop/kitchen">Kitchen</Link>
+                    <Link to="/shop/balcony">Balcony</Link>
                   </li>
                   <li onClick={() => handleMenuItemClick("products")}>
                     <Link to="/shop/bedroom">Bedroom</Link>
+                  </li>
+                  <li onClick={() => handleMenuItemClick("products")}>
+                    <Link to="/shop/bathroom">Bathroom</Link>
                   </li>
                 </ul>
               </div>

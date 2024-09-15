@@ -16,8 +16,8 @@ const AllProducts = () => {
       const response = await axiosInstance.get('/api/products');
       setProducts(response.data);
       setLoading(false);
-    } catch (err) {
-      setError('Error fetching products. Please try again later.');
+    } catch (error) {
+      setError('Error fetching products. Please try again later.',error);
       setLoading(false);
     }
   };

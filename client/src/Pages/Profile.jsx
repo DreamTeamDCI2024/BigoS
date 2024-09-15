@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import "./CSS/Profile.css";
+import { useDropzone } from 'react-dropzone';
 import { useDropzone } from "react-dropzone"; // Importing react-dropzone
 import axiosInstance from "../Context/axiosInstanse.jsx";
 import Orders from "../Components/Profile/Orders.jsx";
@@ -8,7 +11,12 @@ import Settings from "../Components/Profile/Settings.jsx";
 import { UserContext } from "../Context/UserContext.jsx";
 
 const Profile = () => {
+
+  const isActive = ({ isActive }) => (
+    { backgroundColor: isActive ? "antiquewhite" : "" }
+  );
   const isLoggedIn = true;
+  const [user, setUser] = useState(null); // for storing user data
   const [user, setUser] = useState(null); // for storing user data
   const [image, setImage] = useState("");
   const [openIndex, setOpenIndex] = useState(null);
@@ -29,6 +37,14 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
+          throw new Error('No token found');
+        }
+        const response = await axiosInstance.get('/api/user/profile', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          }
+        });
+
           throw new Error("No token found");
         }
         const response = await axiosInstance.get("/api/user/profile", {
@@ -49,6 +65,33 @@ const Profile = () => {
     };
     fetchUserData();
   }, []);
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      'image/*': []
+    },
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        try {
+          const base64 = await getBase64(file);
+          setImage(base64);
+        } catch (error) {
+          console.error('Error al convertir el archivo a base64:', error);
+        }
+      }
+    },
+    multiple: false,
+  });
 
   // function to to conver to Base64
   const getBase64 = (file) => {
@@ -71,6 +114,33 @@ const Profile = () => {
           setImage(base64); // Actualiza el estado con la imagen en base64
         } catch (error) {
           console.error("Error al convertir el archivo a base64:", error);
+        }
+      }
+    },
+    multiple: false,
+  });
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      'image/*': []
+    },
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        try {
+          const base64 = await getBase64(file);
+          setImage(base64);
+        } catch (error) {
+          console.error('Error al convertir el archivo a base64:', error);
         }
       }
     },
@@ -113,8 +183,13 @@ const Profile = () => {
     <div>
       <div className="user-profile">
         <div className="top-side">
+          <h2>¡Bienvenido de nuevo, {user ? user.name : "Usuario"}!</h2>
           <h2>Welcome back, {user ? user.name : "User"}!</h2>
           {image ? (
+            <img
+              src={image}
+              alt="User Avatar"
+              style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px' }}
             <img
               src={image}
               alt="User Avatar"
@@ -127,6 +202,8 @@ const Profile = () => {
               }}
             />
           ) : (
+            <div style={{ width: '150px', height: '150px', borderRadius: '50%', backgroundColor: '#ddd', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+              Sin Avatar
             <div
               style={{
                 width: "150px",
@@ -143,6 +220,17 @@ const Profile = () => {
             </div>
           )}
 
+          <div className="input">
+            <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center', cursor: 'pointer' }}>
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Suelta la imagen aquí...</p>
+              ) : (
+                <p>Arrastra y suelta una imagen aquí, o haz clic para seleccionar una</p>
+              )}
+            </div>
+            <button onClick={putRequestHandler}>Actualizar</button>
+
           {/*  Dropzone area */}
           <div {...getRootProps()} style={{ border: "2px dashed #ccc", padding: "20px", textAlign: "center", cursor: "pointer" }}>
             <input {...getInputProps()} />
@@ -156,6 +244,20 @@ const Profile = () => {
           <button onClick={putRequestHandler}>Update Photo</button>
         </div>
         <div className="credentials">
+          <nav className="left-c">
+            <NavLink to="/profile/orders" style={isActive}>
+              Mis Órdenes
+            </NavLink>
+            <NavLink to="/profile/settings" style={isActive}>
+              Configuración
+            </NavLink>
+            <NavLink to="/profile/logout" style={isActive}>
+              Cerrar Sesión
+            </NavLink>
+          </nav>
+          <div className="right-c">
+            <Outlet context={user} />
+          </div>
           <ul>
             <li onClick={() => handleClick(0)}>
               My Orders
@@ -188,3 +290,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

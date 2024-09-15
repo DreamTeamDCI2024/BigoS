@@ -8,12 +8,22 @@ import textData from '../utils/textData';
 import '../Pages/CSS/HomePage.css';
 import RoomPreview from "../Components/RoomPreview/RoomPreview";
 
+const fallbackVideos = [
+  '/videos/fallback1.mp4',
+  '/videos/fallback2.mp4',
+  '/videos/fallback3.mp4',
+];
+
 const Homepage = () => {
     const { scrollYProgress } = useScroll();
     return (
     <div className="main">
      <SmoothScrollProvider >
-      <WebGPUVideoScrollComponent>
+      <WebGPUVideoScrollComponent progress={scrollYProgress}>
+        <div className="scrollBtn">
+           <h6>scroll</h6>
+           <span></span>
+        </div>
        <div style={{ minHeight: '300vh', padding: '2rem' }}>         
           {textData.map((item, index) => {
             const start = index / textData.length;

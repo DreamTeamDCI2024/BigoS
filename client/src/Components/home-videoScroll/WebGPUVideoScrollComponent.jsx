@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import {  useScroll, useTransform } from 'framer-motion';
 
 const vertexShader = `
 @vertex
@@ -21,20 +21,35 @@ const fragmentShader = `
 
 @fragment
 fn main(@builtin(position) FragCoord: vec4f) -> @location(0) vec4f {
-  var texColor = textureSampleBaseClampToEdge(myTexture, mySampler, FragCoord.xy / vec2f(800.0, 600.0));
-  texColor = vec4f(texColor.rgb * texColor.a, texColor.a);
-  return texColor;
+   var texCoord = FragCoord.xy / vec2f(800.0, 600.0);
+   var texColor = textureSampleBaseClampToEdge(myTexture, mySampler, texCoord);
+   
+   // Multiplicar el color RGB por el canal alfa
+   var finalColor = vec4f(texColor.rgb * texColor.a, texColor.a);
+   return finalColor;
 }`;
 
-const WebGPUVideoScrollComponent = ({ children }) => {
-  const canvasRef = useRef(null);
-  const videoRef = useRef(null);
-  const containerRef = useRef(null);
-  const [device, setDevice] = useState(null);
-  const [error, setError] = useState(null);
-  const [debug, setDebug] = useState('');
-  const [useWebGPU, setUseWebGPU] = useState(true);
+const WebGPUVideoComponent = ({ children, progress }) => {
+  // Referencias a elementos del DOM
+  const canvasRef = useRef(null); 
+  const videoRef = useRef(null);  
+  const containerRef = useRef(null);  
 
+  // Estados del componente
+  const [device, setDevice] = useState(null);  // Almacena el dispositivo WebGPU
+  const [error, setError] = useState(null);  
+  const [useWebGPU, setUseWebGPU] = useState(true);  // Indica si se usa WebGPU o fallback
+  const [needsUpdate, setNeedsUpdate] = useState(true);  // Indica si se necesita actualizar el render
+  const [isScrollMode, setIsScrollMode] = useState(true);  // Indica el modo actual (scroll o consecutivo)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);  // Índice del video actual en modo consecutivo
+  const [playbackSpeed, setPlaybackSpeed] = useState(0.5);
+  const [reachedEnd, setReachedEnd] = useState(false);
+  const [newScrollStarted, setNewScrollStarted] = useState(false);
+  const [preloadedVideos, setPreloadedVideos] = useState({});
+
+  const animationFrameId = useRef(null);  // Almacena el ID de requestAnimationFrame
+
+  // Hook de Framer Motion para el scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start', 'end'],
@@ -42,6 +57,16 @@ const WebGPUVideoScrollComponent = ({ children }) => {
 
   const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
+  // Fuentes de video
+  const scrollVideoSrc = "/videos/BigOs.mp4"; 
+
+  const consecutiveVideos = [  
+    "/videos/fallback1.webm",
+    "/videos/fallback2.webm",
+    "/videos/fallback3.webm",
+  ];
+
+  // Efecto para inicializar WebGPU
   useEffect(() => {
     const initWebGPU = async () => {
       try {
@@ -106,8 +131,12 @@ const WebGPUVideoScrollComponent = ({ children }) => {
         const video = videoRef.current;
         let textureSource;
 
+        if(!canvas || !video) {
+          throw new Error ("Canvas or Video not found");
+        }
+
         const render = () => {
-          if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+          if (needsUpdate && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
             textureSource = device.importExternalTexture({ source: video });
 
             const bindGroup = device.createBindGroup({
@@ -137,17 +166,27 @@ const WebGPUVideoScrollComponent = ({ children }) => {
 
             device.queue.submit([commandEncoder.finish()]);
             setDebug(prev => prev + "Frame rendered.\n");
+            setNeedsUpdate(false);
           }
 
-          requestAnimationFrame(render);
+          animationFrameId.current = requestAnimationFrame(render);
         };
 
-        video.addEventListener('loadedmetadata', () => {
+        const handleVideoMetadata = () => {
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
-         // setDebug(prev => prev + `Video metadata loaded. Size: ${video.videoWidth}x${video.videoHeight}\n`);
+          setNeedsUpdate(true);
           render();
-        });
+        };
+
+        video.addEventListener('loadedmetadata', handleVideoMetadata);
+
+        return () => {
+          video.removeEventListener('loadedmetadata', handleVideoMetadata);
+          if (animationFrameId.current !== null) {
+            cancelAnimationFrame(animationFrameId.current);
+          }
+        };
 
       } catch (err) {
         setError(err.message);
@@ -157,21 +196,99 @@ const WebGPUVideoScrollComponent = ({ children }) => {
     };
 
     initWebGPU();
+
   }, []);
 
   useEffect(() => {
-    const updateVideoTime = () => {
-      if (videoRef.current && videoRef.current.duration) {
-        const currentProgress = scrollProgress.get();
-        videoRef.current.currentTime = currentProgress * videoRef.current.duration;
-       // setDebug(prev => prev + `Video time updated: ${videoRef.current.currentTime}\n`);
+    if (isScrollMode) return; 
+  
+    let prevProgress = 0;
+    
+    const handleScroll = () => {
+      const currentProgress = progress.get();
+      if (reachedEnd && currentProgress < prevProgress) {
+        setNewScrollStarted(true);
+        setReachedEnd(false);
+        setCurrentVideoIndex(0);  // Reiniciar el índice del video aquí
       }
+      prevProgress = currentProgress;
     };
-
-    const unsubscribe = scrollProgress.on( 'change', updateVideoTime);
+    
+    const unsubscribe = progress.on('change', handleScroll);
+    
     return () => unsubscribe();
-  }, [scrollProgress]);
+  }, [isScrollMode, progress, reachedEnd]);
 
+
+  // Efecto para manejar el cambio de modo y la reproducción de video
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isScrollMode) {
+      // Configuración para el modo scroll
+      video.src = scrollVideoSrc;
+      video.load();
+      
+      const updateVideoTime = () => {
+        if (video.duration) {
+          const currentProgress = scrollProgress.get();
+          video.currentTime = currentProgress * video.duration;
+          setNeedsUpdate(true);
+        }
+      };
+
+      const unsubscribe = scrollProgress.on('change', updateVideoTime);
+      return () => unsubscribe();
+
+    } else {
+      // Configuración para el modo de videos consecutivos
+      video.src = consecutiveVideos[currentVideoIndex];
+      video.load();
+      video.playbackRate = playbackSpeed;
+      // video.play();
+
+      const handleEnded = () => {
+        if (currentVideoIndex < consecutiveVideos.length - 1) {
+          setCurrentVideoIndex(prevIndex => prevIndex + 1);
+        } else {
+          setReachedEnd(true);
+        }
+      };
+      const handlePlay = () => {
+        if (newScrollStarted) {
+          setCurrentVideoIndex(0);
+          setNewScrollStarted(false);
+        }
+      };
+
+      video.addEventListener('ended', handleEnded);
+      video.addEventListener('play', handlePlay);
+      
+      video.play().catch(error => console.error("Error playing video:", error));
+
+      return () => {
+        video.removeEventListener('ended', handleEnded);
+        video.removeEventListener('play', handlePlay);
+      };
+    }
+  }, [isScrollMode, scrollProgress, currentVideoIndex, playbackSpeed, newScrollStarted]);
+  
+
+  // Función para alternar entre modos
+  const toggleMode = () => {
+    setIsScrollMode(!isScrollMode);
+    setCurrentVideoIndex(0);
+    setNeedsUpdate(true);
+  };
+  const changeSpeed = (speed) => {
+    setPlaybackSpeed(speed);
+    if (videoRef.current && !isScrollMode) {
+      videoRef.current.playbackRate = speed;
+    }
+  };
+
+  // Renderizado del componente
   return (
     <div ref={containerRef} style={{position: 'relative', height: '600vh' }}>
       <div style={{ 
@@ -183,44 +300,57 @@ const WebGPUVideoScrollComponent = ({ children }) => {
         zIndex: 0
        }}>
         {useWebGPU ? (
-          <canvas 
-            ref={canvasRef} 
-            style={{
-            width: '100%',
-            height: '100%',
-            display: 'block',
-            objectFit: 'cover'
-
-         }}
-        />
+          // Renderizado cuando se usa WebGPU
+          <>
+            <video
+              ref={videoRef}
+              style={{ display: 'none' }}
+              muted
+              playsInline
+              loop={!isScrollMode}
+            />
+            <canvas 
+              ref={canvasRef} 
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'cover'
+              }}
+            />
+          </>
         ) : (
+          // Fallback cuando no se usa WebGPU
           <video
             ref={videoRef}
-           src="/videos/BigOs.mp4"
-            //src="/videos/slide.webm"
+            src={isScrollMode ? scrollVideoSrc : consecutiveVideos[currentVideoIndex]}
             style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
-          }}
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
             muted
             playsInline
-            loop
+            // loop={isScrollMode}
           />
         )}
       </div>
       <div style={{ position: 'relative', zIndex: 1 }}>
         {children}
       </div>
-      {error }
-      {/* <div style={{ position: 'fixed', bottom: 10, left: 10, background: 'rgba(0,0,0,0.5)', color: 'white', padding: '5px' }}>
-        Scroll Progress: {Math.round(scrollProgress.get() * 100)}%
+      {/* <div style={{ position: 'fixed', top: 880, right: 40, zIndex: 2, color: 'white' }}>
+        <button onClick={() => changeSpeed(0.5)}>0.5x</button>
+        <button onClick={() => changeSpeed(1)}>1x</button>
+        <button onClick={() => changeSpeed(2)}>2x</button>
       </div> */}
-      {/* <pre style={{ position: 'fixed', top: 10, right: 10, background: 'rgba(0,0,0,0.5)', color: 'white', padding: '5px', maxHeight: '80vh', overflow: 'auto' }}>
-        {debug}
-      </pre> */}
+      <button 
+        onClick={toggleMode} 
+        style={{ position: 'fixed', top: 150, right: 40, zIndex: 2, color: 'white' }}
+      >
+        {isScrollMode ? "fallback" : "Scroll"}
+      </button>
     </div>
   );
 };
 
-export default WebGPUVideoScrollComponent;
+export default WebGPUVideoComponent;

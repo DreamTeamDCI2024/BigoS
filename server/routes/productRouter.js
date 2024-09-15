@@ -4,7 +4,8 @@ import { getProducts,
          updateProduct,
          deleteProduct,
          getProductImageUrl,
-         //patchProductImage,
+         getProductsByRoom,
+         //patchProductImages,
          getProductImageByIndex,
          getAllProductImages,
          getProductById
@@ -29,6 +30,8 @@ router.get('/products/:id/image-urls', getProductImageUrl);
 router.get('/products/:productId/images/:category/:index', getProductImageByIndex);// Here we can see the image by index in images array(the image come transformed from cloudinary)
 
 router.get('/products/:productId/all-images', getAllProductImages);
+
+router.get('/products/room/:room', getProductsByRoom);
 
 //router.patch('/products/:id/images', patchProductImage); //To add image to an existing product
 
