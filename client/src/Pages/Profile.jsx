@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDropzone } from 'react-dropzone'; 
 import axiosInstance from "../Context/axiosInstanse.jsx";
 import Orders from "../Components/Profile/Orders.jsx";
@@ -8,9 +8,7 @@ import { UserContext } from "../Context/UserContext.jsx";
 import "./CSS/Profile.css";
 
 const Profile = () => {
-  const isActive = ({ isActive }) => ({
-    backgroundColor: isActive ? "antiquewhite" : "",
-  });
+  
   const isLoggedIn = true;
   const [user, setUser] = useState(null);
   const [image, setImage] = useState("");
@@ -74,6 +72,35 @@ const Profile = () => {
     multiple: false,
   });
 
+  const putRequestHandler = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    const data = { image };
+    try {
+      setUser({ ...user, image });
+      console.log("Image before request:", image);
+      const response = await axiosInstance.put("/api/user/update", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setUser(response.data); // Update user data in state
+      setImage(response.data.image); // Update image in state
+      console.log("Updated image after request:", response.data.image);
+
+      alert("Profile photo updated successfully!");
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert("Unauthorized: Please log in again.");
+      } else {
+        alert("An error occurred while updating your profile.");
+      }
+    }
+  };
+  
+
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
   }
@@ -113,25 +140,36 @@ const Profile = () => {
           )}
           <div {...getRootProps()} style={{ border: "2px dashed #ccc", padding: "20px", textAlign: "center", cursor: "pointer" }}>
             <input {...getInputProps()} />
-            {isDragActive ? <p>Drop the image here...</p> : <p>Drag 'n' drop an image here, or click to select one</p>}
+            {isDragActive ? <p>Drop the image here...</p> : <p style={{fontSize: "16px"}}>Drag and drop an image here, or click to select one</p>}
           </div>
-          <button onClick={handleLogout}>Update Photo</button>
+          <button onClick={putRequestHandler}>Update Photo</button>
         </div>
         <div className="credentials">
-          <nav className="left-c">
-            <NavLink to="/profile/orders" style={isActive}>
-              Mis Órdenes
-            </NavLink>
-            <NavLink to="/profile/settings" style={isActive}>
-              Configuración
-            </NavLink>
-            <NavLink to="/profile/logout" style={isActive} onClick={handleLogout}>
+          <ul>
+            <li onClick={() => handleClick(0)}>
+              My Orders
+              <hr />
+              <div
+                className={`credentials-info ${openIndex === 0 ? "open" : ""}`}
+              >
+                <Orders />
+              </div>
+            </li>
+            <li onClick={() => handleClick(1)}>
+              My Information
+              <hr />
+              <div
+                className={`credentials-info ${openIndex === 1 ? "open" : ""}`}
+              >
+                <div onClick={(e) => e.stopPropagation()}>
+                  <Settings />
+                </div>
+              </div>
+            </li>
+            <li className="logout-item" onClick={handleLogout}>
               Logout
-            </NavLink>
-          </nav>
-          <div className="right-c">
-            <Outlet context={user} />
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

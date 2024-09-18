@@ -63,8 +63,9 @@
 .product-display-right h1{
     font-family: 'Rufina';
     color: #454545;
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 700;
+    margin-top: 25px;
 }
 
 .product-display-price{
@@ -121,5 +122,12 @@
     font-weight: 600;
 }
 .product-display-dimensions span{
+    font-weight: 600;
+}
+
+.product-display-description{
+    font-size: 16px;
+}
+.product-display-description span{
     font-weight: 600;
 }

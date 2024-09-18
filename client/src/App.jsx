@@ -7,9 +7,9 @@ import Login from './Pages/Login.jsx';
 import Cart from './Pages/Cart.jsx';
 import Homepage from './Pages/Homepage.jsx';
 import Wishlist from './Pages/Wishlist.jsx';
-import LivingRoom from './Components/Livingroom/LivingRoom.jsx';
+import LivingRoom from './Components/LivingRoom/LivingRoom.jsx';
 import Balcony from './Components/Balcony/Balcony.jsx';
-import BedRoom from './Components/Bedroom/Bedroom.jsx';
+import BedRoom from './Components/BedRoom/Bedroom.jsx';
 import BathRoom from './Components/Bathroom/BathRoom.jsx';
 import { UserContextProvider } from './Context/UserContext.jsx';
 import Profile from './Pages/Profile.jsx';
@@ -44,7 +44,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}>
           <Route path='/profile/orders' element={<Orders/>}/>
           <Route path='/profile/settings' element={<Settings/>}/>
-          {/* <Route path='/profile/logout' element={<Logout/>}/> */}
+          
         </Route>       
       </Routes>
       </BrowserRouter>

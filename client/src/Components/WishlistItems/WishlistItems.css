@@ -26,10 +26,22 @@
     height: 250px;
     object-fit: cover;
 }
+
+.wishlist-format p{
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
 .empty-wishlist {
     text-align: center;
     margin-top: 50px;
     min-height: 100%;
+}
+
+.empty-wishlist p{
+    font-size: 32px;
+    font-family: 'Poppins';
+    font-weight: 300;
 }
 .shop-link {
     display: inline-block;
@@ -45,11 +57,13 @@
     display: flex;
     margin: 10px;
     justify-content: space-between;
+
     
 }
 .wishlist-items-btns button{
     border-radius: 5px;
     color: #454545;
+    padding: 5px;
     -webkit-box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
     -moz-box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
     box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);

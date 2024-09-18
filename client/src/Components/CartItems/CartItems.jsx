@@ -109,7 +109,7 @@ const CartItems = () => {
       </div>
       
       {isModalOpen && (
-        <div className="modal">
+        <div className="modal-cart">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
             <Order 

@@ -46,13 +46,16 @@
 }
 
 .item p{
-    margin: 6px 0px;
+    margin-left: 10px;
+    margin-top: 8px;
+    font-size: 16px;
 }
 
 .price{
     color: #454545;
     font-size: 18px;
     font-weight: 500;
+    margin-left: 10px;
 }
 
 .item img {

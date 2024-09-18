@@ -17,7 +17,7 @@ const WishlistItems = ({ products = [] }) => {
   if (!Array.isArray(products) || products.length === 0) {
     return (
       <div className="empty-wishlist">
-        <p>Your wishlist is empty.</p>
+        <p>Your wishlist is empty</p>
         <Link to="/shop/all-products" className="shop-link">Go to Shop</Link>
       </div>
     );

@@ -1,9 +1,13 @@
 import React from "react";
 import "../Pages/CSS/Contact.css"
-import mail_icon from "../Assets/mail_icon.png";
-import location_icon from "../Assets/location_icon.png";
-import msg_icon from "../Assets/msg_icon.png";
-import phone_icon from "../Assets/phone_icon.png";
+//import mail_icon from "../Assets/mail_icon.png";
+//import location_icon from "../Assets/location_icon.png";
+//import msg_icon from "../Assets/msg_icon.png";
+//import phone_icon from "../Assets/phone_icon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import {faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+//import { AddressMap } from "../Components/AddresMap/AddresMap.jsx";
 
 const Contact = () => {
   const [result, setResult] = React.useState("");
@@ -34,7 +38,7 @@ const Contact = () => {
     <div className="contact">
       <div className="contact-col">
         <h3>
-          Send us a message <img src={msg_icon} alt="" />{" "}
+          Send us a message 
         </h3>
         <p>
           Feel free to reach out through contact form or find our contact
@@ -43,16 +47,16 @@ const Contact = () => {
         </p>
         <ul>
           <li>
-            <img src={mail_icon} alt="" />
+          <FontAwesomeIcon className="contact-icons" icon={faEnvelope} />
             Contact@Bigos.dev
           </li>
           <li>
             {" "}
-            <img src={phone_icon} alt="" />
+            <FontAwesomeIcon className="contact-icons" icon={faPhone} />
             +49 152-651-1321
           </li>
           <li>
-            <img src={location_icon} alt="" />
+          <FontAwesomeIcon className="contact-icons" icon={faLocationDot} />
             77 Ollenhaustrasse, Berlin
             <br /> 13401, Germany
           </li>
@@ -64,8 +68,7 @@ const Contact = () => {
           <input
             type="text"
             name="name"
-            plac
-            eholder="Enter your name"
+            placeholder="Enter your name"
             required
           />{" "}
           <br />

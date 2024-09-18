@@ -24,6 +24,10 @@
     font-weight: 500;
 }
 
+.cartitems-format-main p{
+    font-size: 20px;
+}
+
 .cartitems-format {
     font-size: 16px;
     font-weight: 500;
@@ -33,6 +37,9 @@
     gap: 55px;
     padding: 0px 0px;
     color: #454545;
+}
+.cartitems-format p {
+    font-size: 18px;
 }
 
 .carticon-product-icon{
@@ -76,6 +83,11 @@
     padding: 5px 0px;
 }
 
+.cartitems-total-item h3{
+    font-weight: 600;
+    font-family: 'Poppins';
+}
+
 .cartitems-total button{
     width: 262px;
     height: 58px;
@@ -101,7 +113,7 @@
 
 
 /* The Modal (background) */
-.modal {
+.modal-cart {
     display: flex; 
     position: fixed; 
     z-index: 1000; 

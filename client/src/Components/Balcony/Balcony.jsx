@@ -4,7 +4,7 @@ import Lenis from '@studio-freight/lenis';
 import { useSpring } from 'framer-motion';
 import Gallery from "../productGallery/Gallery";
 import roomsData from "../../utils/roomsData";
-import './Balcony.css';
+//import './Balcony.css';
 
 
 const Balcony = () => {

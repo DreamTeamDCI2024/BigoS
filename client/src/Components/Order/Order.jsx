@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createOrder } from './createOrder.jsx';
 import axiosInstance from "../../Context/axiosInstanse.jsx";
 import { loadStripe } from '@stripe/stripe-js';
@@ -20,6 +20,36 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
   const [orderStatus, setOrderStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState(null); // To store client secret for Stripe
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No token found');
+        }
+
+        const response = await axiosInstance.get('/api/user/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const userData = response.data;
+        setShippingAddress({
+          street: userData.street || '',
+          city: userData.city || '',
+          zip: userData.zip || '',
+          country: userData.country || '',
+          houseNumber: userData.apartment || '', // Assuming "apartment" is the house number
+        });
+      } catch (error) {
+        console.error('Error fetching user profile:', error.response?.data || error.message);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -128,12 +158,12 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
             <option value="PayPal">PayPal</option>
           </select>
         </div>
-        <div>
+        <div className='order-summary'>
           <h3>Order Summary</h3>
-          <p>Total: ${totalPrice}</p>
-          <p>Tax: $10</p>
-          <p>Shipping: $5</p>
-          <p>Grand Total: ${totalPrice + 15}</p>
+          <p style={{fontSize: "18px"}}>Total: ${totalPrice}</p>
+          <p style={{fontSize: "18px"}}>Tax: $10</p>
+          <p style={{fontSize: "18px"}}>Shipping: $5</p>
+          <p style={{fontSize: "20px", fontWeight: "600"}}>Grand Total: ${totalPrice + 15}</p>
         </div>
         <button type="submit" disabled={isLoading || clientSecret}>
           {isLoading ? 'Processing...' : 'Place Order'}
