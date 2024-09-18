@@ -6,14 +6,19 @@ import ArrowButton from '../Components/home-textReveal/ArrowButton';
 import TextReveal from '../Components/home-textReveal/TextReveal';
 import textData from '../utils/textData';
 import '../Pages/CSS/HomePage.css';
-import RoomPreview from "../Components/RoomPreview/RoomPreview";
+import ScrollButton from "../Components/scrollbutton/ScrollButton.jsx";
 
 const Homepage = () => {
     const { scrollYProgress } = useScroll();
     return (
     <div className="main">
      <SmoothScrollProvider >
-      <WebGPUVideoScrollComponent>
+      <WebGPUVideoScrollComponent progress={scrollYProgress}>
+        <div className="scroll">
+           {/* <h6>scroll</h6>
+           <span></span> */}
+           <ScrollButton />
+        </div>
        <div style={{ minHeight: '300vh', padding: '2rem' }}>         
           {textData.map((item, index) => {
             const start = index / textData.length;

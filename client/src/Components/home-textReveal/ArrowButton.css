@@ -1,26 +1,28 @@
 .arrowButtonContainer {
     position: absolute;
-    bottom: 2vh;
+    bottom: 2;
     right: 5vw;
   }
   
 .arrowButton {
   display: inline-flex;
   align-items: center;
-  background-color: #3b83f6c6; /* bg-blue-500 */
-  color: white;
+  background-color: #7084586d; 
+  box-shadow:inset 2px 2px 5px rgb(32, 49, 42);
+  color: rgb(250, 250, 250);
   font-weight: bold;
   padding: 0.5rem 1rem;
-  border-radius: 9999px; /* rounded-full */
+  border-radius: 9999px; 
   border: none;
   cursor: pointer;
   transition: transform 0.1s, background-color 0.3s;
-  gap: 8px; /* Espacio entre el texto y la flecha */
+  gap: 2px;
   position: relative;
   }
   
 .arrowButton:hover {
-    background-color: #2563eb; 
+    background-color: #5e5621a2;
+    color: rgb(171, 223, 242); 
     transform: scale(1.1);
   }
   
@@ -28,7 +30,8 @@
     transform: scale(0.9);
   }
 .arrowIcon {
-    position: absolute; /* Posiciona la flecha de forma absoluta respecto al botón */
-    right: -7px; /* Ajusta este valor según sea necesario para mover la flecha más cerca del texto */
-    height: 84px; 
+    position: absolute;
+    padding:0.2rem; 
+    right: -10px; 
+    /* height: 70px;  */
   }

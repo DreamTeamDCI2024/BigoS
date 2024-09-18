@@ -1,12 +1,12 @@
- const gallery = [
+ const rooms = [
     {
-      name: 'Bedroom',
+      name: 'BedRoom',
       images: {
         large: './images/BedRoom/BedRoom3-large.webp',
         medium: './images/BedRoom/BedRoom3-medium.webp',
         small: './images/BedRoom/BedRoom3-small.webp',
       },
-      link: './src/Components/Bedroom/BedRoom.jsx'
+      link: '/shop/bedroom'
     },
     {
       name: 'Balcony',
@@ -15,25 +15,25 @@
         medium: './images/Balcony/Balcony-medium.webp',
         small: './images/Balcony/Balcony-small.webp',
       },
-      link: './src/Components/Balcony/Balcony.jsx'
+      link: '/shop/balcony'
     },
     {
-      name: 'Livingroom',
+      name: 'LivingRoom',
       images: {
         large: './images/LivingRoom/LivingRoom-large.webp',
         medium: './images/LivingRoom/LivingRoom-medium.webp',
         small: './images/LivingRoom/LivingRoom-small.webp',
       },
-      link: './src/Components/Livingroom/LivingRoom.jsx'
+      link: '/shop/living-room'
     },
     {
-      name: 'Bathroom',
+      name: 'BathRoom',
       images: {
         large: './images/BathRoom/BathRoom-large.webp',
         medium: './images/BathRoom/BathRoom-medium.webp',
         small: './images/BathRoom/BathRoom-small.webp',
       },
-      link: './src/Components/Bathroom/BathRoom.jsx'
+      link: '/shop/bathroom'
     },
   ];
-  export default gallery;
+  export default rooms;

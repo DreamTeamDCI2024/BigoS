@@ -246,3 +246,21 @@ export async function getProductById(req, res) {
         res.status(500).json({message: 'Error retrieving product: ' + error.message });
     }
 }
+
+export async function getProductsByRoom(req, res) {
+    try {
+      const { room } = req.params;
+      const validRooms = ['LivingRoom', 'BedRoom', 'BathRoom', 'Balcony'];
+      
+      if (!validRooms.includes(room)) {
+        return res.status(400).json({ error: 'Valor de room inválido' });
+      }
+      
+      const products = await Product.find({ room });
+      
+      res.status(200).json(products);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error internal' });
+    }
+  }

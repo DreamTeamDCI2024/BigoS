@@ -1,6 +1,79 @@
 .main{
-    background-image: url('./images/homeBackground.webp') ;
+    /* background-image: url('./images/homeBackground.webp') ;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
+.scroll{
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+}
+.scrollBtn {
+    position: absolute;
+    top: 72vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    width: 100px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0px;
+    z-index: 1;
+    transition: all ease-in-out 0.35s;
+    -webkit-transition: all ease-in-out 0.35s;
+  }
+  .scrollBtn.move {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .scrollBtn span {
+    width: 14px;
+    height: 14px;
+    display: block;
+    border-bottom: 2px solid wheat;
+    border-right: 2px solid wheat;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    animation: animate 2s infinite;
+    -webkit-animation: animate 2s infinite;
+    margin: auto;
+  }
+  .scrollBtn h6 {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: wheat;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  @keyframes animate {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+  }
+  @-webkit-keyframes animate {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+  }

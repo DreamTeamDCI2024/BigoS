@@ -18,7 +18,7 @@ const ArrowButton = ({ scrollYProgress }) => {
       whileTap={{ scale: 0.9 }}
       onClick={() => {
         // Here the logic to move to Rooms-Gallery
-        console.log('Navegar a otra página');
+        console.log('Navegate to another page');
       }}
     >
       Gallery<ChevronRight size={38} className="arrowIcon" />

@@ -1,0 +1,68 @@
+.scrollBtn {
+    position: absolute;
+    bottom: 2.5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    width: 100px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+    transition: all ease-in-out 0.35s;
+    -webkit-transition: all ease-in-out 0.35s;
+  }
+  .scrollBtn.move {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .scrollBtn span {
+    width: 12px;
+    height: 12px;
+    display: block;
+    border-bottom: 2px solid var(--white);
+    border-right: 2px solid var(--white);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    animation: animate 2s infinite;
+    -webkit-animation: animate 2s infinite;
+    margin: auto;
+  }
+  .scrollBtn h6 {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    font-family: "Titillium Web", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  @keyframes animate {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+  }
+  @-webkit-keyframes animate {
+    0% {
+      opacity: 0;
+      transform: rotate(45deg) translate(-10px, -10px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+  }
