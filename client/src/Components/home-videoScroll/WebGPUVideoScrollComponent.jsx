@@ -35,7 +35,6 @@ const WebGPUVideoComponent = ({ children, progress }) => {
   const videoRef = useRef(null);  
   const containerRef = useRef(null);  
 
-  // Estados del componente
   const [device, setDevice] = useState(null);  
   const [error, setError] = useState(null);  
   const [useWebGPU, setUseWebGPU] = useState(true);  // Indica si se usa WebGPU o fallback
@@ -45,8 +44,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
   const [playbackSpeed, setPlaybackSpeed] = useState(0.5);
   const [reachedEnd, setReachedEnd] = useState(false);
   const [newScrollStarted, setNewScrollStarted] = useState(false);
-  // const [preloadedVideos, setPreloadedVideos] = useState({});
-  
+  const [preloadedVideos, setPreloadedVideos] = useState({});
 
   const animationFrameId = useRef(null);  // Almacena el ID de requestAnimationFrame
 
@@ -58,9 +56,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
 
   const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  // Fuentes de video
   const scrollVideoSrc = "/videos/videoHome1.mp4"; 
-
   const consecutiveVideos = [  
     "/videos/fallback1.webm",
     "/videos/fallback2.webm",
@@ -297,12 +293,12 @@ const WebGPUVideoComponent = ({ children, progress }) => {
     setCurrentVideoIndex(0);
     setNeedsUpdate(true);
   };
-  const changeSpeed = (speed) => {
-    setPlaybackSpeed(speed);
-    if (videoRef.current && !isScrollMode) {
-      videoRef.current.playbackRate = speed;
-    }
-  };
+  // const changeSpeed = (speed) => {
+  //   setPlaybackSpeed(speed);
+  //   if (videoRef.current && !isScrollMode) {
+  //     videoRef.current.playbackRate = speed;
+  //   }
+  // };
 
   // Renderizado del componente
   return (

@@ -6,9 +6,9 @@
 .loginsignup-container{
     width: 580px;
     height: 600px;
-    background: #efece7;
+    background: rgba(255, 255, 255, 0.453);
     margin: auto;
-    padding: 40px 60px;
+    padding: 10px 50px;
     border-radius: 2%;
 }
 .loginsignup-container h1{
@@ -32,15 +32,16 @@
     outline: none;
     color: #5c5c5c;
     font-size: 18px;
-    border-radius: 2%;
+    border-radius: 5px;
 }
 .loginsignup-container button{
-    width: 580px;
+    width: 100%;
     height: 72px;
     color: white;
     background-color: red;
     margin-top: 30px;
     border: none;
+    border-radius: 5px;
     font-size: 24px;
     font-weight: 500;
     cursor: pointer; 
@@ -66,4 +67,55 @@
 }
 .loginsignup-login span{
     cursor: pointer;
+}
+
+/* For tablets and small laptops (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .loginsignup-container {
+        width: 80%;
+        padding: 20px;
+        height: auto;
+    }
+    .loginsignup-fields input {
+        height: 60px;
+        font-size: 16px;
+        width: 95%;
+            
+    }
+    .loginsignup-container button {
+        height: 60px;
+        font-size: 20px;
+    }
+}
+
+/* For mobile devices (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .loginsignup-container {
+        width: 95%;
+        padding: 10px 20px;
+        height: auto;
+    }
+    .loginsignup-container h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+    .loginsignup-fields input {
+        height: 50px;
+        font-size: 14px;
+        width: 95%;
+    }
+    .loginsignup-container button {
+        height: 50px;
+        font-size: 18px;
+    }
+    .loginsignup-login {
+        font-size: 16px;
+        text-align: center;
+    }
+    .loginsignup-agree {
+        font-size: 14px;
+        gap: 10px;
+        flex-direction: column;
+        text-align: center;
+    }
 }

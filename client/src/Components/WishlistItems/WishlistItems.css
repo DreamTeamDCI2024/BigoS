@@ -29,6 +29,7 @@
 .empty-wishlist {
     text-align: center;
     margin-top: 50px;
+    min-height: 100%;
 }
 .shop-link {
     display: inline-block;
@@ -56,6 +57,7 @@
 .whishlistitems-remove{
     font-size: 26px;
 }
-.whishlistitems-remove:active{
+
+.whishlistitems-remove:hover{
     transform: scale(1.2);
 }

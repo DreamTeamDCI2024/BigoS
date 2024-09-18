@@ -9,14 +9,6 @@ export function UserContextProvider({children}) {
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const handleSignupSuccess = (data) => {
-        setUser({
-          id: data.newUser.id,
-          name: data.newUser.name,
-          email: data.newUser.email,
-        });
-      };
-
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
@@ -49,6 +41,7 @@ export function UserContextProvider({children}) {
         try {
             const response = await axiosInstance.post('/api/user/login', { email, password });
             localStorage.setItem('token', response.data.token);
+            setUser(response.data.user); // Assuming the response includes user data
             setIsAuthenticated(true);
             setLoading(false);
         } catch (error) {
@@ -68,18 +61,16 @@ export function UserContextProvider({children}) {
             throw error; // Re-throw the error so it can be caught by the UI or logged
         }
     };
-
     const signUp = async (name, email, password)=>{
-        setLoading(true);
+        setLoading(true); 
         try {
             const response = await axiosInstance.post('/api/user/signup', { name, email, password });
             localStorage.setItem('token', response.data.token);
-            console.log("Sign-up response:", response);
-            handleSignupSuccess(response.data);
+            setUser(response.data.user);
             setIsAuthenticated(true);
         } finally {
             setLoading(false);
-        } 
+        }
     }
 
     const logout = () => {

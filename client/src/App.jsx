@@ -13,7 +13,6 @@ import BedRoom from './Components/Bedroom/Bedroom.jsx';
 import BathRoom from './Components/Bathroom/BathRoom.jsx';
 import { UserContextProvider } from './Context/UserContext.jsx';
 import Profile from './Pages/Profile.jsx';
-import Logout from './Components/Profile/Logout.jsx';
 import Settings from './Components/Profile/Settings.jsx';
 import Orders from './Components/Profile/Orders.jsx';
 import AllProducts from './Components/AllProducts/AllProducts.jsx';
@@ -21,10 +20,9 @@ import ShopContextProvider from './Context/ShopContext.jsx';
 import ProductDisplay from './Components/ProductDisplay/ProductDisplay.jsx';
 import RoomPreview from './Components/RoomPreview/RoomPreview.jsx';
 
-
 function App() {
   return (
-    <div>
+    <div className='page-container'>
       <UserContextProvider>
       <ShopContextProvider>
       <BrowserRouter>
@@ -46,7 +44,7 @@ function App() {
           <Route path='/profile' element={<Profile/>}>
           <Route path='/profile/orders' element={<Orders/>}/>
           <Route path='/profile/settings' element={<Settings/>}/>
-          <Route path='/profile/logout' element={<Logout/>}/>
+          {/* <Route path='/profile/logout' element={<Logout/>}/> */}
         </Route>       
       </Routes>
       </BrowserRouter>

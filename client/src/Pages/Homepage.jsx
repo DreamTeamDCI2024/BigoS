@@ -8,6 +8,12 @@ import textData from '../utils/textData';
 import '../Pages/CSS/HomePage.css';
 import ScrollButton from "../Components/scrollbutton/ScrollButton.jsx";
 
+const fallbackVideos = [
+  '/videos/fallback1.mp4',
+  '/videos/fallback2.mp4',
+  '/videos/fallback3.mp4',
+];
+
 const Homepage = () => {
     const { scrollYProgress } = useScroll();
     return (

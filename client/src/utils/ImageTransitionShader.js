@@ -76,14 +76,22 @@ class ImageTransitionShader extends THREE.ShaderMaterial{
         
         vec2 center = uBubbleCenter;
         float dist = distance(vUv, center);
+<<<<<<< HEAD
         float radius = p * 1.4;
+=======
+        float radius = p * 2.4;
+>>>>>>> 4e247d4a0f5f46d4bd9915c035ab0c228e3fd101
         float edgeSmoothing = 0.2;
         float delayValue = smoothstep(radius - edgeSmoothing, radius, dist);
         delayValue = 1.0 - clamp(delayValue, 0.0, 1.0);
     
         vec2 direction = normalize(vUv - center);
         vec2 bubbleOffset = direction * (1.0 - delayValue) * 0.05;
+<<<<<<< HEAD
         vec2 w = sin(sin(uTime) * vec2(0.1, 0.3) + vUv * vec2(0.1, 0.8)) * vec2(0.08, 0.08);
+=======
+        vec2 w = sin(sin(uTime) * vec2(0.1, 0.3) + vUv * vec2(0.1, 0.8)) * vec2(0.1, 0.2);
+>>>>>>> 4e247d4a0f5f46d4bd9915c035ab0c228e3fd101
         vec2 xy = w * (tri(p) * 0.5 + tri(delayValue) * 0.5) / 2.0;
     
         vec2 uv1 = vUv + bubbleOffset + xy;

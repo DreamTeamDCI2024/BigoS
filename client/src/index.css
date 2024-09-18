@@ -1,18 +1,35 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgba(134, 127, 120, 0.843); 
+  flex-grow: 1;
+  box-sizing: border-box;
+  
 }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  position: relative;
   place-items: center;
-  min-width: 320px;
-  /* background: rgba(161, 117, 63, 0.843); */
-  font-family: 'Poppins';
   width: 100%;
+  height: 100%;
+  
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.content-wrap {
+  flex-grow: 1; 
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 

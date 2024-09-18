@@ -49,35 +49,35 @@ const Orders = () => {
     <div className="order-wrap">
       {orders.map((order) => (
         <div key={order._id} className="order-card">
-          <h2 style={{ fontSize: '14px', marginBottom: '10px' }}>Order ID: {order._id}</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+          <h2>Order ID: {order._id}</h2>
+          <div className="order-details">
             <div>
-              <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Shipping Address:</h3>
+              <h3>Shipping Address:</h3>
               <p>{order.shippingAddress.street}, {order.shippingAddress.houseNumber}</p>
               <p>{order.shippingAddress.city}, {order.shippingAddress.zip}</p>
               <p>{order.shippingAddress.country}</p>
             </div>
             <div>
-              <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Order Details:</h3>
+              <h3>Order Details:</h3>
               <p>Payment Method: {order.paymentMethod}</p>
               <p>Total Price: ${order.totalPrice.toFixed(2)}</p>
             </div>
           </div>
-          <h3 style={{ fontSize: '14px', marginBottom: '10px' }}>Order Items:</h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <h3>Order Items:</h3>
+          <table>
             <thead>
               <tr style={{ backgroundColor: '#f0f0f0' }}>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Product</th>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Quantity</th>
-                <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #ccc' }}>Price</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
               </tr>
             </thead>
             <tbody>
               {order.orderItems.map((item) => (
                 <tr key={item._id}>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>{item.product.name}</td>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>{item.quantity}</td>
-                  <td style={{ padding: '10px', border: '1px solid #ccc' }}>${item.price.toFixed(2)}</td>
+                  <td>{item.product.name}</td>
+                  <td>{item.quantity}</td>
+                  <td>${item.price.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

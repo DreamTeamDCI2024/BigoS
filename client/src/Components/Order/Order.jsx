@@ -86,7 +86,7 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
           />
           <input
             type="text"
-            name="number"
+            name="houseNumber"
             value={shippingAddress.houseNumber}
             onChange={handleInputChange}
             placeholder="House №"
@@ -117,11 +117,12 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
             required
           />
         </div>
-        <div>
+        <div className='payment'>
           <h3>Payment Method</h3>
           <select
             value={paymentMethod}
             onChange={(e) => setPaymentMethod(e.target.value)}
+            className='select'
           >
             <option value="Credit Card">Credit Card</option>
             <option value="PayPal">PayPal</option>

@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { ShopContext } from '../Context/ShopContext.jsx';
 import WishlistItems from '../Components/WishlistItems/WishlistItems.jsx';
 import axiosInstance from '../Context/axiosInstanse.jsx';
+import './CSS/Wishlist.css';
 
 const Wishlist = () => {
   const { wishlistItems } = useContext(ShopContext);
