@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { ShopContext } from '../../Context/ShopContext';
+import '../Order/Order.css';
 
 const Checkout = ({ clientSecret, closeModal }) => {
   const stripe = useStripe();

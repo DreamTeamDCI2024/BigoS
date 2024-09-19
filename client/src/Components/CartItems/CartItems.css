@@ -129,7 +129,7 @@
 
 /* Modal Content */
 .modal-content {
-    background-color: #e8c6c6;
+    background-color: #c9c6c6f2;
     padding: 20px;
     border-radius: 5px;
     width: 700px;
@@ -183,6 +183,9 @@
     .cartitems-format-main, .cartitems-format {
         grid-template-columns: 0.8fr 1.5fr 1fr 1fr 1fr;
         gap: 40px;
+    }
+    .cartitems-format p{
+        text-align: center;
     }
 
     .carticon-product-icon {

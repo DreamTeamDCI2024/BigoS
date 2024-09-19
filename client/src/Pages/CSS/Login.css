@@ -71,6 +71,10 @@
 .loginsignup-login span{
     cursor: pointer;
 }
+.error{
+    font-size: 20px;
+    color: red;
+}
 
 /* For tablets and small laptops (max-width: 768px) */
 @media screen and (max-width: 768px) {
