@@ -23,7 +23,14 @@ function Image(props) {
   });
   return (
     <group ref={group}>
-      <ImageImpl ref={ref} {...props} />
+      <ImageImpl 
+         ref={ref} 
+         {...props}
+         transparent
+         alphaTest={0.5}
+         deepWrite={false}
+         toneMapped={false}
+        />
     </group>
   );
 }
