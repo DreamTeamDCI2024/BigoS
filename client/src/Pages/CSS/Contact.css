@@ -3,13 +3,14 @@
     max-width: 90%;
     display: flex;
     align-content: center;
-    justify-content: space-between;
+    /*justify-content: space-between;*/gap: 100px;
   }
   
   .contact-col {
-    flex-basis: 48%;
+    /*flex-basis: 48%;*/
     color: #454545;
     font-size: 16px;
+    width: 700px;
     /* font-weight: bolder; */
   }
   
@@ -37,7 +38,7 @@
   .contact-col ul li {
     display: flex;
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0;
   }
   
   .contact-col ul li img {
@@ -54,7 +55,8 @@
     padding: 15px;
     border: 0;
     outline: 0;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
+    border-radius: 5px;
     resize: none;
   }
   
@@ -100,4 +102,73 @@
       color: #381f00;
       margin-right: 15px;
       font-size: 24px;
+    }
+
+    .google-map-code iframe{
+      border: 0;
+      border-radius: 5px; 
+      height: 700px; 
+      width: 700px;
+    }
+
+    @media screen and (max-width: 1324px) {
+      .contact{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+    }
+
+    @media screen and (max-width: 748px) {
+      .contact{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .contact-col {
+        color: #454545;
+        font-size: 16px;
+        width: 500px;
+        
+      }
+      .google-map-code iframe{
+        width: 500px;
+        height: 300px;
+      }
+    }
+
+    @media screen and (max-width: 520px) {
+      .contact{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .contact-col {
+        color: #454545;
+        font-size: 16px;
+        width: 400px;
+        
+      }
+      .google-map-code iframe{
+        width: 400px;
+        height: 300px;
+      }
+    }
+
+    @media screen and (max-width: 420px) {
+      .contact{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .contact-col {
+        color: #454545;
+        font-size: 16px;
+        width: 300px;
+        
+      }
+      .google-map-code iframe{
+        width: 300px;
+        height: 200px;
+      }
     }

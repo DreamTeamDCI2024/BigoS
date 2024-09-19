@@ -7,7 +7,7 @@ import "../Pages/CSS/Contact.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
-//import { AddressMap } from "../Components/AddresMap/AddresMap.jsx";
+import { AddressMap } from "../Components/AddresMap/AddresMap.jsx";
 
 const Contact = () => {
   const [result, setResult] = React.useState("");
@@ -61,8 +61,6 @@ const Contact = () => {
             <br /> 13401, Germany
           </li>
         </ul>
-      </div>
-      <div className="contact-col">
         <form onSubmit={onSubmit}>
           <label>Your name</label>
           <input
@@ -94,6 +92,8 @@ const Contact = () => {
         </form>
         <span>{result}</span>
       </div>
+      
+    <AddressMap/>
     </div>
   );
 };

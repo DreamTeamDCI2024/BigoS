@@ -10,7 +10,7 @@
     /* background-color: transparent; */
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(1px);
-    border-right: 1px solid rgba(209, 213, 219, 0.3);
+    /*border-right: 1px solid rgba(209, 213, 219, 0.3);*/
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     z-index: 1000;
     transition: background-color 0.3s ease;

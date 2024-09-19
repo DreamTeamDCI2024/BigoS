@@ -1,0 +1,138 @@
+.about-wrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.about-first{
+    background-image: url(../../Assets/LivingRoom.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.about-first::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: -1; 
+}
+.modal-about{
+    
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.modal-about h1{
+    color: #efece7;
+}
+
+.modal-about p{
+    color: #efece7;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: 1px solid #efece7;
+    border-radius: 5px;
+    width: 100px;
+    padding: 10px;
+    margin: auto;
+}
+
+.about-second{
+    width: 100%;
+    height: 50%;
+    margin-top: 86vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+.about-second h2{
+    margin-top: 50px;
+    color: #efece7;
+}
+.about-second p{
+    font-size: 18px;
+    color: #efece7;
+}
+
+.about-second-gallery{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 130px;
+
+}
+.about-second-gallery img{
+    width: 350px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+
+.about-third{
+    width: 100%;
+    height: 50%;
+    background-color: #efece7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.about-third h2{
+    margin-top: 50px;
+}
+.about-third p{
+    font-size: 18px;
+}
+
+.about-third-delivery{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.about-third-delivery div{
+    width: 500px;
+    text-align: center;
+}
+
+.about-fourth{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.about-fourth h2{
+    margin-top: 50px;
+    color: #efece7;
+}
+
+.follow{
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+    font-size: 32px;
+    color: #efece7;
+}
+
+
+

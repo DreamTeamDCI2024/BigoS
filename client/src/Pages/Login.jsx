@@ -99,7 +99,7 @@ const Login = () => {
                 {error && <p className="error">{error}</p>}
             </div>
             <TermsOfuse show={showTermsModal} onClose={() => setShowTermsModal(false)} title="Terms of Use">
-                <p></p>
+                
             </TermsOfuse>
         </div>
     );
