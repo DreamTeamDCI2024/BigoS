@@ -46,11 +46,11 @@ const About = () => {
             <div className='about-fourth'>
                 <h2>Follow Us on Social</h2>
                 <div className='follow'>
-                    <FontAwesomeIcon className='footer-icons' icon={faInstagram} />
-                    <FontAwesomeIcon className='footer-icons' icon={faFacebook} />
-                    <FontAwesomeIcon className='footer-icons' icon={faPinterestP} />
-                    <FontAwesomeIcon className='footer-icons' icon={faYoutube} />
-                    <FontAwesomeIcon className='footer-icons' icon={faTiktok} />
+                    <FontAwesomeIcon className='footer-icons instagram' icon={faInstagram} />
+                    <FontAwesomeIcon className='footer-icons facebook' icon={faFacebook} />
+                    <FontAwesomeIcon className='footer-icons pinterest' icon={faPinterestP} />
+                    <FontAwesomeIcon className='footer-icons youtube' icon={faYoutube} />
+                    <FontAwesomeIcon className='footer-icons tiktok' icon={faTiktok} />
         
                 </div>
             </div>

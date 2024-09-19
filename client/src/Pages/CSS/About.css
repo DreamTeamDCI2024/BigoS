@@ -134,5 +134,35 @@
     color: #efece7;
 }
 
+.footer-icons {
+    font-size: 24px; /* Adjust size as needed */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.footer-icons.instagram:hover {
+    color: #E1306C; /* Instagram color */
+    transform: scale(1.2); /* Slightly increase size */
+}
+
+.footer-icons.facebook:hover {
+    color: #3b5998; /* Facebook color */
+    transform: scale(1.2); /* Slightly increase size */
+}
+
+.footer-icons.pinterest:hover {
+    color: #E60023; /* Pinterest color */
+    transform: scale(1.2); /* Slightly increase size */
+}
+
+.footer-icons.youtube:hover {
+    color: #FF0000; /* YouTube color */
+    transform: scale(1.2); /* Slightly increase size */
+}
+
+.footer-icons.tiktok:hover {
+    color: #69C9D0; /* TikTok color */
+    transform: scale(1.2); /* Slightly increase size */
+}
+
 
 
