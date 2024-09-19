@@ -37,18 +37,18 @@ const WebGPUVideoComponent = ({ children, progress }) => {
 
   const [device, setDevice] = useState(null);  
   const [error, setError] = useState(null);  
-  const [useWebGPU, setUseWebGPU] = useState(true);  // Indica si se usa WebGPU o fallback
-  const [needsUpdate, setNeedsUpdate] = useState(true);  // Indica si se necesita actualizar el render
-  const [isScrollMode, setIsScrollMode] = useState(true);  // Indica el modo actual (scroll o consecutivo)
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);  // Índice del video actual en modo consecutivo
-  const [playbackSpeed, setPlaybackSpeed] = useState(0.5);
+  const [useWebGPU, setUseWebGPU] = useState(true);  // if fallback or scroll-video
+  const [needsUpdate, setNeedsUpdate] = useState(true);  // if need to update the render
+  const [isScrollMode, setIsScrollMode] = useState(true);  // defaoul mode or consecutive
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);  // index of consecutive vide0
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [reachedEnd, setReachedEnd] = useState(false);
   const [newScrollStarted, setNewScrollStarted] = useState(false);
   const [preloadedVideos, setPreloadedVideos] = useState({});
 
-  const animationFrameId = useRef(null);  // Almacena el ID de requestAnimationFrame
+  const animationFrameId = useRef(null);  // store  the id of the requestAnimationFrame
 
-  // Hook de Framer Motion para el scroll
+  // Hook de Framer Motion for scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start', 'end'],
@@ -58,9 +58,9 @@ const WebGPUVideoComponent = ({ children, progress }) => {
 
   const scrollVideoSrc = "/videos/videoHome1.mp4"; 
   const consecutiveVideos = [  
-    "/videos/fallback1.webm",
-    "/videos/fallback2.webm",
-    "/videos/fallback3.webm",
+    "/videos/videoHome1.mp4",
+    // "/videos/fallback2.webm",
+    // "/videos/fallback3.webm",
   ];
 
   // start WebGPU
@@ -254,7 +254,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
       return () => unsubscribe();
 
     } else {
-      // Configuración para el modo de videos consecutivos
+      // Configuration for consecutive videos
       video.src = consecutiveVideos[currentVideoIndex];
       video.load();
       video.playbackRate = playbackSpeed;
@@ -287,7 +287,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
   }, [isScrollMode, scrollProgress, currentVideoIndex, playbackSpeed, newScrollStarted]);
   
 
-  // Función para alternar entre modos
+  // to switch modes
   const toggleMode = () => {
     setIsScrollMode(!isScrollMode);
     setCurrentVideoIndex(0);
@@ -300,7 +300,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
   //   }
   // };
 
-  // Renderizado del componente
+  // Rendering the component
   return (
     <div ref={containerRef} style={{position: 'relative', height: '600vh' }}>
       <div style={{ 
@@ -312,7 +312,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
         zIndex: 0
        }}>
         {useWebGPU ? (
-          // Renderizado cuando se usa WebGPU
+          // Render when is  WebGPU
           <>
             <video
               ref={videoRef}
@@ -332,7 +332,7 @@ const WebGPUVideoComponent = ({ children, progress }) => {
             />
           </>
         ) : (
-          // Fallback cuando no se usa WebGPU
+          // Fallback when is not WebGPU
           <video
             ref={videoRef}
             src={isScrollMode ? scrollVideoSrc : consecutiveVideos[currentVideoIndex]}
