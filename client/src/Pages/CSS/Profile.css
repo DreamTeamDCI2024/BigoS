@@ -70,7 +70,7 @@
   -moz-box-shadow: -2px -1px 17px 1px rgba(54, 53, 54, 0.76);
   box-shadow: -2px -1px 17px 1px rgba(54, 53, 54, 0.76);
   transition: transform 0.5s ease;
-  background-color: rgba(163, 160, 156, 0.894);
+  background-color: rgb(183, 180, 179);
 }
 
 li:hover {

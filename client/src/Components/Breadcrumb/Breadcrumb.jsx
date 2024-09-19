@@ -11,7 +11,7 @@ const Breadcrumb = (props) => {
         <span className="breadcrumb-separator">{'>'}</span>
         <Link to='/shop/all-products'>Our Products</Link>
         <span className="breadcrumb-separator">{'>'}</span>
-        {product.categories}
+        {product.room}
         <span className="breadcrumb-separator">{'>'}</span>
         {product.name};
     </div>
