@@ -3,12 +3,14 @@ import { useState, useContext } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { ShopContext } from '../../Context/ShopContext';
 import '../Order/Order.css';
+import PaymentSuccessModal from './PaymentSuccessModal';
 
 const Checkout = ({ clientSecret, closeModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const { clearCart } = useContext(ShopContext); 
 
   const handlePaymentSubmit = async (e) => {
@@ -30,9 +32,13 @@ const Checkout = ({ clientSecret, closeModal }) => {
         if (result.paymentIntent.status === 'succeeded') {
           setPaymentStatus('Payment successful!');
           clearCart();
+
+          // Trigger the success modal
+          setIsSuccessModalOpen(true);
+
           setTimeout(() => {
             closeModal(); // Close the modal after successful payment
-          }, 2000);
+          }, 5000);
         }
       }
     } catch (error) {
@@ -42,6 +48,11 @@ const Checkout = ({ clientSecret, closeModal }) => {
       setIsLoading(false);
     }
   };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+  };
+  
   Checkout.propTypes = {
     clientSecret: PropTypes.string.isRequired,
     closeModal: PropTypes.func.isRequired,
@@ -57,7 +68,10 @@ const Checkout = ({ clientSecret, closeModal }) => {
         </button>
       </form>
       {paymentStatus && <p className={paymentStatus.includes('Error') ? 'error' : 'success'}>{paymentStatus}</p>}
-    </div>
+
+      {/* Render the PaymentSuccessModal */}
+      <PaymentSuccessModal isOpen={isSuccessModalOpen} onClose={closeSuccessModal} />
+     </div>
   );
 };
 
