@@ -4,8 +4,6 @@ import Lenis from '@studio-freight/lenis';
 import { useSpring } from 'framer-motion';
 import Gallery from "../productGallery/Gallery";
 import roomsData from "../../utils/roomsData";
-import './LivingRoom.css';
-
 
 const LivingRoom = () => {
   const [roomProducts, setRoomProducts] = useState([]);
@@ -56,7 +54,7 @@ const LivingRoom = () => {
   }
 
   return (
-    <main className="about-container" onMouseMove={mouseMove}>     
+    <main style={{ position:'absolute', top:0, left:0 }} onMouseMove={mouseMove}>     
         {loading ? (
       <div>Loading products...</div>
     ) : error ? (

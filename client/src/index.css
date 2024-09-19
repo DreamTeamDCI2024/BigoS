@@ -8,6 +8,12 @@
   flex-grow: 1;
   box-sizing: border-box;  
 }
+html{
+  
+  place-items: center;
+  /* position: relative;
+  min-height: 100vh; */
+}
  body {
   margin: 0;
   padding: 0;
