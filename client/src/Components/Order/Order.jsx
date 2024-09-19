@@ -5,6 +5,11 @@ import axiosInstance from "../../Context/axiosInstanse.jsx";
 import { loadStripe } from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 import Checkout from '../Checkout/Checkout.jsx';
+import './Order.css';
+import visa from '../../Assets/visa_payment_method_card_icon_142729.webp';
+import masterCard from '../../Assets/MasterCard.png';
+import paypal from '../../Assets/Paypal.png';
+import CustomDropdown from './CustomDropdown.jsx';
 
 const stripePromise = loadStripe('pk_test_51Ps9oxKc6TGOcmdDNqRgGIDY0qTbzxgDdqtEQ09ekUFvSMVelQSbaghFthc7OEAbhLGLfGWtiETwNYsnW6ZZw8zF00B0pHn5TU');
 
@@ -37,6 +42,9 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
 
         const userData = response.data;
         setShippingAddress({
+          name: userData.name || '',
+          phone: userData.phone || '',
+          email: userData.email || '',
           street: userData.street || '',
           city: userData.city || '',
           zip: userData.zip || '',
@@ -64,9 +72,9 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
       orderItems,
       shippingAddress,
       paymentMethod,
-      taxPrice: 10, 
-      shippingPrice: 5, 
-      totalPrice: totalPrice + 15
+      taxPrice: 0, 
+      shippingPrice: 50, 
+      totalPrice: totalPrice + 50
     };
 
     try {
@@ -94,6 +102,14 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
       setIsLoading(false);
     }
   };
+
+  // Payment options with custom content
+  const paymentOptions = [
+    { value: 'Credit Card', label: <div className='credit-card'><p>Credit Card</p><div className='creditcard-images'><img src={visa} alt="visa" /><img src={masterCard} alt="mastercard" /></div></div> },
+    { value: 'PayPal', label: <div className='credit-card'><p>Pay Pal</p><img src={paypal} alt="visa" /></div> }
+  ];
+
+  
   Order.propTypes = {
     orderItems: PropTypes.array.isRequired,
     totalPrice: PropTypes.number.isRequired, 
@@ -104,8 +120,32 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
     <div className="order">
       <h2>Create Order</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <h3>Shipping Address</h3>
+        <div className='shipping'>
+          <h4>Shipping</h4>
+          <input
+            type="text"
+            name="name"
+            value={shippingAddress.name}
+            onChange={handleInputChange}
+            placeholder="Name"
+            required
+          />
+          <input
+            type="text"
+            name="surname"
+            
+            onChange={handleInputChange}
+            placeholder="Surname"
+            required
+          />
+          <input
+            type="text"
+            name="phone"
+            value={shippingAddress.phone}
+            onChange={handleInputChange}
+            placeholder="Phone"
+            required
+          />
           <input
             type="text"
             name="street"
@@ -146,27 +186,34 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
             placeholder="Country"
             required
           />
+          <input
+            type="text"
+            name="email"
+            value={shippingAddress.email}
+            onChange={handleInputChange}
+            placeholder="Email"
+            required
+          />
         </div>
         <div className='payment'>
-          <h3>Payment Method</h3>
-          <select
-            value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
-            className='select'
-          >
-            <option value="Credit Card">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-          </select>
+          <h4>Payment Method</h4>
+          <CustomDropdown
+            options={paymentOptions}
+            selectedValue={paymentMethod}
+            onChange={setPaymentMethod}
+          />
+          
         </div>
         <div className='order-summary'>
-          <h3>Order Summary</h3>
-          <p style={{fontSize: "18px"}}>Total: ${totalPrice}</p>
-          <p style={{fontSize: "18px"}}>Tax: $10</p>
-          <p style={{fontSize: "18px"}}>Shipping: $5</p>
-          <p style={{fontSize: "20px", fontWeight: "600"}}>Grand Total: ${totalPrice + 15}</p>
+          <h4>Order Summary</h4>
+          
+          <p>Total: ${totalPrice}</p>
+          <p>Tax: $0</p>
+          <p>Shipping: $50</p>
+          <p>Grand Total: ${totalPrice + 50}</p>
         </div>
-        <button type="submit" disabled={isLoading || clientSecret}>
-          {isLoading ? 'Processing...' : 'Place Order'}
+        <button className='pay' type="submit" disabled={isLoading || clientSecret}>
+          {isLoading ? 'Processing...' : 'Pay'}
         </button>
       </form>
       {orderStatus && <p className={orderStatus.includes('Error') ? 'error' : 'success'}>{orderStatus}</p>}

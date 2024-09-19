@@ -25,3 +25,13 @@
 .breadcrumb span {
     color: #333;
 }
+
+@media screen and (max-width: 680px){
+    .breadcrumb{
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        font-size: 12px;
+        margin: 10px 15px;
+    }
+}
