@@ -169,7 +169,7 @@ button:hover {
   transition-duration: .25s;
 }
 /* -----Submenu----- */
-/*
+
 .submenu-container {
     position: relative;
 }
@@ -200,7 +200,7 @@ button:hover {
 .submenu li:hover {
     background-color: #CFD8DC;
 }
-*/
+
 /* -----Logo----- */
 .nav-logo{
     
