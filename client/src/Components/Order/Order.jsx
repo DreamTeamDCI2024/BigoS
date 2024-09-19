@@ -205,7 +205,7 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
           
         </div>
         <div className='order-summary'>
-          <h4>Order Summary</h4>
+          <h2>Order Summary</h2>
           
           <p>Total: ${totalPrice}</p>
           <p>Tax: $0</p>
