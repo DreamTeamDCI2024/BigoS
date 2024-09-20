@@ -19,7 +19,7 @@ const WishlistItems = ({ products = [] }) => {
     // Hide the alert after 3 seconds
     setTimeout(() => {
       setShowAlert(false);
-    }, 15000);
+    }, 5000);
   };
 
   if (!Array.isArray(products) || products.length === 0) {

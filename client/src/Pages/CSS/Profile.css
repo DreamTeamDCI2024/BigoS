@@ -137,7 +137,12 @@ li hr {
   margin-bottom: 0px;
   color: #272727;
 }
-
+.order-card h4{
+  font-size: 14px;
+  font-weight: 500;
+  color: #454545;
+  text-decoration: underline;
+}
 .order-card h3 {
   font-size: 16px;
   margin-bottom: 10px;

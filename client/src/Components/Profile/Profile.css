@@ -35,3 +35,8 @@
     margin-bottom: 20px;
     background-color: antiquewhite;
 }
+
+.order-card h4{
+    font-size: 12px;
+    font-weight: 400;
+}
