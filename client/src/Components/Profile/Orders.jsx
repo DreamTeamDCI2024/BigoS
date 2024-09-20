@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../Context/axiosInstanse.jsx";
-
+import '../../Pages/CSS/Profile.css';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);

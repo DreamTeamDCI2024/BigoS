@@ -16,6 +16,10 @@ const Settings = () => {
     apartment: user?.apartment || "",
   });
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -45,11 +49,17 @@ const Settings = () => {
     );
 
     console.log('Response:', response.data);
-    alert('Profile updated successfully!');
+    setAlertMessage('Profile updated successfully!');
+    setShowAlert(true);
   } catch (error) {
+    setAlertMessage('Failed to update profile.');
+    setShowAlert(true);
     console.error('Error updating profile:', error.response?.data || error.message);
-    alert('Failed to update profile. Check console for details.');
-  }
+    }
+    setTimeout(() => {
+      setShowAlert(false);
+      setAlertMessage('');
+    }, 3000);
   };
 
   useEffect(() => {
@@ -88,8 +98,13 @@ const Settings = () => {
   
   return (
     <div className='settings'>
+      {showAlert && (
+        <div className="alert-message">
+          {alertMessage}
+        </div>
+      )}
         <form onSubmit={handleSubmit} className="settings-form">
-  <div className="form-group">
+    <div className="form-group">
     <div className='label'><label htmlFor="name">Name</label></div>
     <input
       type="text"
