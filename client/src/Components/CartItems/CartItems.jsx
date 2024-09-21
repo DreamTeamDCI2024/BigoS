@@ -33,14 +33,13 @@ const CartItems = () => {
   const openModal = () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      // Redirect to login page if not authenticated
       navigate('/login');
     } else {
       setIsModalOpen(true);
     }
   };
-  const closeModal = () => setIsModalOpen(false);
 
+  const closeModal = () => setIsModalOpen(false);
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
   if (error) return <div className="text-center py-4 text-red-500">{error}</div>;
@@ -53,7 +52,7 @@ const CartItems = () => {
       price: product.price
     }));
 
-    
+  const totalAmount = parseFloat(getTotalCartAmount().toFixed(2));
 
   return (
     <div className="cartitems">
@@ -72,7 +71,7 @@ const CartItems = () => {
               <img src={product.images && product.images.product && product.images.product[0] ? product.images.product[0].url : ''} alt="" className="carticon-product-icon"/>
             </Link>
             <p>{product.name}</p>
-            <p>${product.price}</p>
+            <p>${product.price.toFixed(2)}</p>
             <div className="cartitem-quantity-control">
               <FontAwesomeIcon 
                 icon={faMinus} 
@@ -91,17 +90,18 @@ const CartItems = () => {
                 className="quantity-icon"
               />
             </div>
-            <p>${product.price * cartItems[product._id]}</p>
+            <p>${(product.price * cartItems[product._id]).toFixed(2)}</p>
           </div>
           <hr />
         </div>
       ))}
       <div className="cartitems-down">
         <div className="cartitems-total">
-          <div>
+          <div className="fsp">
+            <p>Free shipping for orders above $500</p>
             <div className="cartitems-total-item">
               <h3>Total</h3>
-              <h3>${getTotalCartAmount()}</h3>
+              <h3>${totalAmount}</h3>
             </div>
           </div>
           <button onClick={openModal}>PROCEED TO CHECKOUT</button>
@@ -114,7 +114,7 @@ const CartItems = () => {
             <span className="close" onClick={closeModal}>&times;</span>
             <Order 
               orderItems={orderItems} 
-              totalPrice={getTotalCartAmount()}
+              totalPrice={totalAmount}
               closeModal={closeModal}
             />
           </div>
