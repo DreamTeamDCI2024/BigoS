@@ -11,6 +11,9 @@
   margin-left: auto;
   align-items: center;
   font-family: "Poppins", sans-serif;
+  -webkit-box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
+  -moz-box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
+  box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
 }
 
 .top-side {
@@ -21,14 +24,29 @@
 .top-side img {
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(122,122,122,1);
+  box-shadow: 0px 0px 7px 1px rgba(122,122,122,1);
   border-radius: 50%;
 }
 .top-side h2 {
   font-family: "Rufina", sans-serif;
   font-weight: 600;
-  color: #272727;
+  color: #454545;
   margin-top: 30px;
+}
+
+.top-side div{
+  color: #454545;
+}
+.top-side button{
+  color: #272727;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+  box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
 }
 
 .input input[type="file" i]::-webkit-file-upload-button {
@@ -63,19 +81,33 @@
   cursor: pointer;
   list-style: none;
   text-align: center;
+  color: #272727;
   margin: 20px;
   padding: 20px 100px;
   border-radius: 15px;
   overflow: hidden;
-  -webkit-box-shadow: -2px -1px 17px 1px rgba(54, 53, 54, 0.76);
-  -moz-box-shadow: -2px -1px 17px 1px rgba(54, 53, 54, 0.76);
-  box-shadow: -2px -1px 17px 1px rgba(54, 53, 54, 0.76);
+  -webkit-box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
+  -moz-box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
+  box-shadow: 0px 0px 12px 1px rgba(115,115,115,1);
   transition: transform 0.5s ease;
   background-color: rgb(183, 180, 179);
 }
 
 li:hover {
   transform: scale(1.1);
+}
+
+.order-wrap::-webkit-scrollbar{
+  width: 5px;
+}
+.order-wrap::-webkit-scrollbar-thumb{
+  background-color: #a5a5a5;
+  border-radius: 10px;
+  height: 100px;
+}
+.order-wrap::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 20px;
 }
 
 li hr {
@@ -105,7 +137,12 @@ li hr {
   margin-bottom: 0px;
   color: #272727;
 }
-
+.order-card h4{
+  font-size: 14px;
+  font-weight: 500;
+  color: #454545;
+  text-decoration: underline;
+}
 .order-card h3 {
   font-size: 16px;
   margin-bottom: 10px;
@@ -253,6 +290,21 @@ li hr {
         font-size: 14px;
       }
 }
+
+.alert-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  color: #eee;
+  background-color: green;
+}
+
 
 @media (max-width: 480px) {
   .user-profile {

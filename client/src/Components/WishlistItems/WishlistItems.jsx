@@ -1,17 +1,25 @@
 import PropTypes from 'prop-types';
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "../../Context/ShopContext.jsx";
 import './WishlistItems.css';
 
 const WishlistItems = ({ products = [] }) => {
   const { addToCart, removeFromWishlist } = useContext(ShopContext);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleButtonAddToCart = (productId, productName) => {
     addToCart(productId);
-    alert(`${productName} has been added to your cart!`);
+    setAlertMessage(`${productName} has been added to your cart!`);
+    setShowAlert(true);
+    
+    // Hide the alert after 3 seconds
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 5000);
   };
 
   if (!Array.isArray(products) || products.length === 0) {
@@ -25,6 +33,12 @@ const WishlistItems = ({ products = [] }) => {
 
   return (
     <div className='wishlist-items'>
+      {showAlert && (
+        <div id="custom-alert" className="custom-alert">
+          <span><FontAwesomeIcon icon={faCheck} className="check-icon"/>{alertMessage}</span>
+          <button onClick={() => setShowAlert(false)}>Close</button>
+        </div>
+      )}
       {products.map((product) => {
         if (!product || typeof product !== 'object') {
           return null; // Skip invalid products

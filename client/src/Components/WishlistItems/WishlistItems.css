@@ -39,9 +39,10 @@
 }
 
 .empty-wishlist p{
-    font-size: 32px;
+    font-size: 24px;
     font-family: 'Poppins';
     font-weight: 300;
+    color: #272727;
 }
 .shop-link {
     display: inline-block;
@@ -74,4 +75,48 @@
 
 .whishlistitems-remove:hover{
     transform: scale(1.2);
+}
+
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #eee;
+    color: #454545;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  .custom-alert button {
+    background-color: transparent;
+    border: none;
+    color: #272727;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .custom-alert span{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+
+.check-icon{
+    padding: 5px 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
 }

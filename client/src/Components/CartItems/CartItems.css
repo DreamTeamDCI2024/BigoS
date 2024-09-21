@@ -1,9 +1,9 @@
 .cartitems{
     margin: 50px 170px;
     background-color: rgba(255, 255, 255, 0.664);
-    -webkit-box-shadow: 0px 1px 16px 5px rgba(69,69,69,1);
-    -moz-box-shadow: 0px 1px 16px 5px rgba(69,69,69,1);
-    box-shadow: 0px 1px 16px 5px rgba(69,69,69,1);
+    -webkit-box-shadow: 0px 1px 16px 5px rgba(116, 116, 116);
+    -moz-box-shadow: 0px 1px 16px 5px rgba(116, 116, 116);
+    box-shadow: 0px 1px 16px 5px rgb(116, 116, 116);
 }
 
 .cartitems hr{
@@ -14,7 +14,7 @@
 
 .cartitems-format-main{
     display: grid;
-    grid-template-columns: 1.8fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 2fr 1fr 1fr 1fr;
     align-items: center;
     text-align: center;
     gap: 100px;
@@ -32,19 +32,28 @@
     font-size: 16px;
     font-weight: 500;
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
     align-items: center;
     gap: 55px;
-    padding: 0px 0px;
+    padding: 0px 20px;
     color: #454545;
 }
 .cartitems-format p {
     font-size: 18px;
+    text-align: center;
 }
 
 .carticon-product-icon{
-    height: 62px;
+    width: 250px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 2%;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+    box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
 }
+
 
 .cartitems-remove{
     font-size: 15px;
@@ -100,17 +109,6 @@
     cursor: pointer;
 }
 
-.carticon-product-icon{
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 2%;
-    overflow: hidden;
-    -webkit-box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
-    -moz-box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
-    box-shadow: -2px -1px 17px 1px rgba(54,53,54,0.76);
-}
-
 
 /* The Modal (background) */
 .modal-cart {
@@ -125,7 +123,24 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.4);
     overflow: auto;
+    scrollbar-width: thin;
 }
+
+.modal-cart .modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+  
+.modal-cart .modal-content::-webkit-scrollbar-thumb {
+    background-color: #a5a5a5;
+    border-radius: 10px;
+    height: 100px;
+}
+  
+.modal-cart .modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+}
+
 
 /* Modal Content */
 .modal-content {
@@ -172,8 +187,24 @@
     color: #555;
 }
 
-/* Media Queries for responsiveness */
+.fsp p{
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
 
+/* Media Queries for responsiveness */
+@media (max-width: 1470px) {
+    .carticon-product-icon{
+        width: 200px;
+    }
+}
+@media (max-width: 1285px) {
+    .carticon-product-icon{
+        width: 150px;
+        height: 100px;
+    }
+}
 /* Tablets and small screens (widths from 768px to 1024px) */
 @media (max-width: 1024px) {
     .cartitems {

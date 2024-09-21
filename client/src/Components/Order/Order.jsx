@@ -79,7 +79,7 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
 
     try {
       const createdOrder = await createOrder(order);
-      setOrderStatus('Order created successfully. Proceeding to payment...');
+      setOrderStatus('Proceeding to payment...');
       console.log('Created order:', createdOrder);
       
       const paymentIntentResponse = await axiosInstance.post('/api/payments/create', {
@@ -213,7 +213,7 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
           <p>Grand Total: ${totalPrice + 50}</p>
         </div>
         <button className='pay' type="submit" disabled={isLoading || clientSecret}>
-          {isLoading ? 'Processing...' : 'Pay'}
+          {isLoading ? 'Processing...' : 'Proceed to checkout'}
         </button>
       </form>
       {orderStatus && <p className={orderStatus.includes('Error') ? 'error' : 'success'}>{orderStatus}</p>}

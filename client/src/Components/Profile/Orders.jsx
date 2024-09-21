@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../Context/axiosInstanse.jsx";
-
+import '../../Pages/CSS/Profile.css';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -49,7 +49,7 @@ const Orders = () => {
     <div className="order-wrap">
       {orders.map((order) => (
         <div key={order._id} className="order-card">
-          <h2>Order ID: {order._id}</h2>
+          <h4 className="order-id">Order ID: {order._id}</h4>
           <div className="order-details">
             <div>
               <h3>Shipping Address:</h3>
