@@ -219,7 +219,7 @@ const Order = ({ orderItems, totalPrice, closeModal }) => {
           <h2>Order Summary</h2>
           
           <p>Total: ${totalPrice}</p>
-          <p>Tax: ${taxPrice.toFixed(2)}</p>
+          <p>Tax(incl.): ${taxPrice.toFixed(2)}</p>
           <p>Shipping: ${shippingPrice}</p>
           <p>Grand Total: ${grandTotal}</p>
         </div>

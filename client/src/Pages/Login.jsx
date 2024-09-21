@@ -8,12 +8,13 @@ import TermsOfuse from '../Components/TermsOfuse/TermsOfuse.jsx';
 
 const Login = () => {
     const [state, setState] = useState("Login");
-    const [formData, setFormData] = useState({ name: "", password: "", email: "" });
+    const [formData, setFormData] = useState({ name: "", password: "", email: "", confirmPassword: "" });
     const [error, setError] = useState("");
     const { login, signUp } = useContext(UserContext);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [showTermsModal, setShowTermsModal] = useState(false);
     const [agreeTerms, setAgreeTerms] = useState(false);
+    
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
@@ -23,9 +24,17 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (state === "Sign Up" && !agreeTerms) {
-            setError("Please agree to the terms of use & privacy policy");
-            return;
+        if (state === "Sign Up") {
+            // Check if terms are agreed to
+            if (!agreeTerms) {
+                setError("Please agree to the terms of use & privacy policy");
+                return;
+            }
+            // Check if passwords match
+            if (formData.password !== formData.confirmPassword) {
+                setError("Passwords do not match");
+                return;
+            }
         }
         try {
             if (state === "Login") {
@@ -33,7 +42,7 @@ const Login = () => {
                 console.log("Login successful");
                 navigate('/profile');
             } else if (state === "Sign Up") {
-                await signUp(formData.name, formData.email, formData.password);
+                await signUp(formData.name, formData.email, formData.password, formData.confirmPassword);
                 console.log("Sign-up successful");
                 navigate('/profile');
             }
@@ -81,6 +90,18 @@ const Login = () => {
                             {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
                         </span>
                     </div>
+                    {state === "Sign Up" && (
+                        <div>
+                            <input
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={changeHandler}
+                                type={passwordVisible ? 'text' : 'password'}
+                                placeholder="Confirm Password"
+                                required
+                            />
+                        </div>
+                    )}
                 </div>
                 <button onClick={handleSubmit}>Continue</button>
                 {state === "Sign Up"

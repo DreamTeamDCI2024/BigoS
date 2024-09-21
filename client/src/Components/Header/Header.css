@@ -88,7 +88,7 @@ button:hover {
     visibility: hidden;
     top: 0;
     left: -100%;
-    width: 160px;
+    width: 180px;
     height: 100vh;
     margin: 0;
     padding: 80px 0;
@@ -96,7 +96,7 @@ button:hover {
 
     /* background-color: #ECEFF1;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2); */
-    background-color: rgba(255, 255, 255, 0.351);
+    background-color: rgba(86, 86, 86, 0.792);
     backdrop-filter: blur(8px);
     border-right: 1px solid rgba(209, 213, 219, 0.3);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -105,32 +105,34 @@ button:hover {
 .sidebar li{
     display: block;
     padding: 12px 24px;
-    font-family: 'Poppin', sans-serif;
+    font-family: 'Rufina', sans-serif;
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
     transition-duration: .25s;
     margin-top: 10%;
-
+    color: #efece7;
 
 }
-.sidebar li:hover{
-    background-color: #efece7;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
 .sidebar li a{
     text-decoration: none;
+    text-transform: uppercase;
+    color: #efece7;
+    transition: color 0.25s ease;
 }
-.sidebar li a:link{
+
+.sidebar li:hover {
+    background-color: #efece763;
+    border-radius: 5px;
+    cursor: pointer;
     color: #454545;
+    box-shadow: 2px 2px 4px rgb(207, 250, 114);
 }
-.sidebar li a:visited{
-    color: black;
+.sidebar li:hover a {
+    color: #454545; /* Change link color on hover */
 }
-.sidebar li a:hover{
-    color: black;
-}
+
 .sidebar li a:active{
     color: #454545;
 }
@@ -194,14 +196,16 @@ button:hover {
     padding: 12px 24px;
     font-size: 18px;
     color: #333;
+
 }
 .submenu li a {
     text-decoration: none;
-    color: black;
+    color: #efece7;
 }
 .submenu li:hover {
-    background-color: #CFD8DC;
+    background-color: transparent;
 }
+
 
 /* -----Logo----- */
 .nav-logo{

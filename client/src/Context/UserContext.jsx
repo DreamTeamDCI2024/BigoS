@@ -61,13 +61,22 @@ export function UserContextProvider({children}) {
             throw error; // Re-throw the error so it can be caught by the UI or logged
         }
     };
-    const signUp = async (name, email, password)=>{
-        setLoading(true); 
+    const signUp = async (name, email, password, confirmPassword)=>{
+        setLoading(true);
+        
+        // Check if password and confirmPassword match
+        if (password !== confirmPassword) {
+        setLoading(false);
+        throw new Error("Passwords do not match.");
+        }
         try {
             const response = await axiosInstance.post('/api/user/signup', { name, email, password });
             localStorage.setItem('token', response.data.token);
             setUser(response.data.user);
             setIsAuthenticated(true);
+        } catch (error) {
+            console.error("Error during sign-up:", error);
+            throw error; // Re-throw so UI can handle the error    
         } finally {
             setLoading(false);
         }
