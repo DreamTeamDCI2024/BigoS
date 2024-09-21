@@ -76,7 +76,7 @@ const Header = () => {
                 </ul>
               </div>
           </li>
-          <li onClick={() => handleMenuItemClick("contact")}><Link to='/contact'>Contact</Link></li>
+          <li onClick={() => handleMenuItemClick("contact")}><Link to='/contact'>Contacts</Link></li>
         </ul>
       </div>
 

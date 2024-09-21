@@ -26,7 +26,7 @@ const WishlistItems = ({ products = [] }) => {
     return (
       <div className="empty-wishlist">
         <p>Your wishlist is empty</p>
-        <Link to="/shop/all-products" className="shop-link">Go to Shop</Link>
+        <Link to="/shop/all-products"><button>Go to Shop</button></Link>
       </div>
     );
   }

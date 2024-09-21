@@ -143,6 +143,10 @@ input[type="radio"] {
 .order-summary{
   display: flex;
   flex-direction: column;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(122,122,122,1);
+  box-shadow: 0px 0px 5px 1px rgb(215, 215, 215);
+  background-color: #f5f5f5;
 }
 .order-summary h4{
   font-size: 18px;
@@ -233,6 +237,8 @@ input[type="radio"] {
 
 .modal-content h2 {
   margin-bottom: 10px;
+  font-family: 'Rufina';
+  color: #454545;
 }
 .modal-content p{
   font-size: 18px;
@@ -240,15 +246,24 @@ input[type="radio"] {
 
 .modal-content button {
   padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
+  /*background-color: #4CAF50;*/
+  color: #454545;
   border: none;
+  -webkit-box-shadow: 0px 0px 7px 1px rgba(69,69,69,1);
+  -moz-box-shadow: 0px 0px 7px 1px rgba(69,69,69,1);
+  box-shadow: 0px 0px 7px 1px rgba(69,69,69,1);
   border-radius: 4px;
   cursor: pointer;
   text-transform: uppercase;
   margin: 20px auto;
+  background: linear-gradient(to right, transparent 50%, green 50%); 
+  background-size: 200% 100%;  
+  background-position: 0% 0%;
+  transition: background-position 0.5s ease-in-out;
 }
 
 .modal-content button:hover {
-  background-color: #45a049;
+  background-position: 100% 0%;
+  color: #e7e7e7;
+  
 }

@@ -39,13 +39,14 @@ const Profile = () => {
       } catch (error) {
         if (error.response && error.response.status === 401) {
           alert("Unauthorized: Please log in again.");
+          navigate("/login"); // Redirect to login page
         } else {
           alert("An error occurred while fetching your profile.");
         }
       }
     };
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
   const getBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -94,6 +95,7 @@ const Profile = () => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert("Unauthorized: Please log in again.");
+        navigate("/login");
       } else {
         alert("An error occurred while updating your profile.");
       }

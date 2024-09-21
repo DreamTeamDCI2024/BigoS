@@ -46,3 +46,6 @@ body::-webkit-scrollbar-thumb{
   background-color: #a5a5a5;
   border-radius: 10px;
 }
+body::-webkit-scrollbar-corner{
+  background-color: rgb(183, 180, 179);
+}
