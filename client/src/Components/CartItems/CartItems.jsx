@@ -44,15 +44,25 @@ const CartItems = () => {
   if (loading) return <div className="text-center py-4">Loading...</div>;
   if (error) return <div className="text-center py-4 text-red-500">{error}</div>;
 
-  const orderItems = products
-    .filter(product => cartItems[product._id] > 0)
-    .map(product => ({
-      product: product._id,
-      quantity: cartItems[product._id],
-      price: product.price
-    }));
+  const cartProductIds = Object.keys(cartItems).filter(id => cartItems[id] > 0);
+  const cartProducts = products.filter(product => cartProductIds.includes(product._id));
+
+  const orderItems = cartProducts.map(product => ({
+    product: product._id,
+    quantity: cartItems[product._id],
+    price: product.price
+  }));
 
   const totalAmount = parseFloat(getTotalCartAmount().toFixed(2));
+
+  if (cartProducts.length === 0) {
+    return (
+      <div className="empty-wishlist">
+        <p>Your shopping cart is empty</p>
+        <Link to="/shop/all-products"><button>Go to Shop</button></Link>
+      </div>
+    );
+  }
 
   return (
     <div className="cartitems">
@@ -64,7 +74,7 @@ const CartItems = () => {
         <p>Total</p>
       </div>
       <hr />
-      {products.filter(product => cartItems[product._id] > 0).map((product) => (
+      {cartProducts.map((product) => (
         <div key={product._id}>
           <div className="cartitems-format">
             <Link to={`/products/${product._id}`}>

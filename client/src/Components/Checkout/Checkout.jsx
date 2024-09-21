@@ -31,13 +31,13 @@ const Checkout = ({ clientSecret, closeModal }) => {
       } else {
         if (result.paymentIntent.status === 'succeeded') {
           setPaymentStatus('Payment successful!');
-          clearCart();
+          
 
           // Trigger the success modal
           setIsSuccessModalOpen(true);
 
           setTimeout(() => {
-            closeModal(); // Close the modal after successful payment
+            clearCart();  // Close the modal after successful payment
           }, 5000);
         }
       }
@@ -51,6 +51,7 @@ const Checkout = ({ clientSecret, closeModal }) => {
 
   const closeSuccessModal = () => {
     setIsSuccessModalOpen(false);
+    closeModal();
   };
   
   Checkout.propTypes = {
