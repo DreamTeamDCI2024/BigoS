@@ -10,22 +10,29 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Function to To Create a Payment
 export const createPayment = async (req, res) => {
   try {
-    const { orderId, amount, currency } = req.body;
+    let { orderId, amount, currency } = req.body;
 
-    //Function to To Validate the order
+    if (!orderId || !amount || !currency) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+    amount = Math.round(amount * 100);
+
     const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    // Function to To Create a payment intent with Stripe
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
       metadata: { orderId: orderId.toString(), userId: req.user.id.toString() },
     });
 
-    // Function to Save the payment details in the database
+
     const newPayment = new Payment({
       userId: req.user.id,
       orderId,
@@ -36,9 +43,25 @@ export const createPayment = async (req, res) => {
     });
     await newPayment.save();
 
-    return res.status(201).json({ message: "Payment initiated", clientSecret: paymentIntent.client_secret });
+    return res.status(201).json({ 
+      message: "Payment initiated", 
+      clientSecret: paymentIntent.client_secret 
+    });
   } catch (error) {
-    return res.status(500).json({ message: "Error creating payment", error });
+    console.error('Error in createPayment:', error);
+    
+    if (error instanceof Stripe.errors.StripeError) {
+      return res.status(400).json({ 
+        message: "Stripe error", 
+        error: error.message,
+        type: error.type
+      });
+    }
+    
+    return res.status(500).json({ 
+      message: "Error creating payment", 
+      error: error.message 
+    });
   }
 };
 
@@ -78,3 +101,60 @@ export const handleWebhook = async (req, res) => {
 
   res.status(200).json({ received: true });
 };
+/*
+export const createPayment = async (req, res) => {
+  try {
+    let { orderId, amount, currency } = req.body;
+
+    if (!orderId || !amount || !currency) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+    amount = Math.round(amount * 100);
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency,
+      metadata: { orderId: orderId.toString(), userId: req.user.id.toString() },
+    });
+
+
+    const newPayment = new Payment({
+      userId: req.user.id,
+      orderId,
+      amount,
+      currency,
+      paymentIntentId: paymentIntent.id,
+      status: "pending",
+    });
+    await newPayment.save();
+
+    return res.status(201).json({ 
+      message: "Payment initiated", 
+      clientSecret: paymentIntent.client_secret 
+    });
+  } catch (error) {
+    console.error('Error in createPayment:', error);
+    
+    if (error instanceof Stripe.errors.StripeError) {
+      return res.status(400).json({ 
+        message: "Stripe error", 
+        error: error.message,
+        type: error.type
+      });
+    }
+    
+    return res.status(500).json({ 
+      message: "Error creating payment", 
+      error: error.message 
+    });
+  }
+};*/
