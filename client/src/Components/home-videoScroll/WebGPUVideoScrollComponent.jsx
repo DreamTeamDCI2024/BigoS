@@ -56,11 +56,9 @@ const WebGPUVideoComponent = ({ children, progress }) => {
 
   const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  const scrollVideoSrc = "/videos/videoHome1.mp4"; 
+  const scrollVideoSrc = "/videos/videoHome.mp4"; 
   const consecutiveVideos = [  
-    "/videos/videoHome1.mp4",
-    // "/videos/fallback2.webm",
-    // "/videos/fallback3.webm",
+    "/videos/videoHome.mp4",
   ];
 
   // start WebGPU

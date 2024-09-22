@@ -4,10 +4,11 @@
 }
 .main-container {
   overflow-x: hidden;
+  
 }
 .main-container {
   background-color: var(--primary);
-  height: 100%;
+  /* height: 100%; */
   color: var(--white);
 }
 .main-container::-webkit-scrollbar {
@@ -224,6 +225,7 @@ p {
   -webkit-text-transform: uppercase;
   letter-spacing: 2px;
 }
+
 @keyframes animate {
   0% {
     opacity: 0;
@@ -302,6 +304,112 @@ p {
   -webkit-transform: translateY(-30px);
   animation: scrollup 1s 1.2s forwards, moveUpAgain 1s 2.2s forwards;
   -webkit-animation: scrollup 1s 1.2s forwards, moveUpAgain 1s 2.2s forwards;
+}
+
+
+.button-section {
+  position: relative;
+  padding: 2rem;
+  /* background-image: url('/images/LivingRoom/LivingRoom-large.webp'); */
+  background-size: cover;
+  background-position: center;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+.room-360-view-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; 
+  background-color: #000; 
+}
+.room-360-view-container.fullscreen canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.view-360-button {
+  position: absolute;
+  top:50%;
+  left: 30%;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #7084586d;
+  border-radius: 9999px; 
+  box-shadow:inset 2px 2px 5px rgb(230, 238, 235);
+  color: rgb(223, 247, 158);
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.room-360-view-container.fullscreen .back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  transition: transform 0.1s, background-color 0.3s;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-360-button:hover {
+  background-color: #5e5621a2;
+  color: rgb(171, 223, 242); 
+  transform: scale(1.1);
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* .view-360-button {
+  background-color: #007bff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+} */
+
+.view-360-button:hover {
+  background-color: #546546a2;
 }
 @keyframes moveUp {
   0% {

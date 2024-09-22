@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { useScroll } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 import ScrollMagic from 'scrollmagic';
+import { motion, AnimatePresence } from 'framer-motion';
 import ArrowButton from '../home-textReveal/ArrowButton'
 import RoomSlides from '../room-slides/RoomSlides';
+import Room360View from '../room360View/Room360View';
 import './Gallery.css';
 
 function chunkArray(array, size) {
@@ -22,7 +24,8 @@ const Gallery = ({ products, roomData }) => {
   const secondTextRef = useRef(null);
   const loaderVideoRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
-
+  const [is360View, setIs360View] = useState(false);
+  const buttonSectionRef = useRef(null);
   // State to manage selected images
   const [selectedImages, setSelectedImages] = useState([]);
 
@@ -32,10 +35,11 @@ const Gallery = ({ products, roomData }) => {
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
-      // console.log(products);
+    //  console.log(products);
+    
     }
     requestAnimationFrame(raf);
-
+    
     // Scroll Indicator functionality
     const handleScroll = () => {
       if (scrollIndicatorRef.current) {
@@ -200,10 +204,10 @@ const Gallery = ({ products, roomData }) => {
       clearTimeout(fourthTimeout);
       controller.destroy(true);
     };
-  }, [products]);
+  },[products]);
 
     // Handle image click
-  const handleImageClick = (product) => {
+    const handleImageClick = (product) => {
       const imagesArray = [];
       if (product.images) {
         ['product', 'transparent', 'contextual'].forEach((key) => {
@@ -222,100 +226,143 @@ const Gallery = ({ products, roomData }) => {
       setSelectedImages(imagesChunks);
     };
 
-  return (
-    <div className='main-container'>
-        <section className="events-page">
-        <div id="section1" 
-             className="event" 
-             style={{ backgroundImage: `url(${roomData.imageSrc})` }}
-        >
-          <div className="pinWrapper">
-            <div className="text">
-              <h2>{roomData ? roomData.roomName : ''}</h2>
-              <p>{roomData ? roomData.preloaderSubtitle : ''}</p>
-            </div>
-            <div className="image" id="loaderVideo" ref={loaderVideoRef}>
-              <video autoPlay loop muted playsInline>
-                <source src={roomData.videoSrc} type="video/mp4" />
-              </video>
-            </div>
-          </div>
-          <div className="scrollBtn" ref={scrollIndicatorRef}>
-            <h6>scroll</h6>
-            <span></span>
-          </div>
-        </div>
-        {products.slice(0,3).map((product, index) => {
-          let productImageUrl = '';
-          let backgroundImageUrl = '';
-          
-          // Accessing product images
-          if (
-            product.images &&
-            product.images.product &&
-            product.images.product.length > 0 &&
-            product.images.product[0].url 
-          ) {
-            productImageUrl = product.images.product[0].url;
-          } else {
-            // default image
-            productImageUrl = '/images/LivingRoom/LivingRoom-small.webp';
-          }
+    const handle360ViewClick = () => {
+      setIs360View(true);
+      if (buttonSectionRef.current) {
+        buttonSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+      document.body.classList.add('view-360-active');
+    };
+  
+    const handleBack360Click = () => {
+      setIs360View(false);
+      document.body.classList.remove('view-360-active');
+    };
 
-          // Accessing background images
-          if (
-            product.images &&
-            product.images.contextual &&
-            product.images.contextual.length > 0 &&
-            product.images.contextual[1].url
-          ) {
-            backgroundImageUrl = product.images.contextual[1].url;
-          }
-          return (
-            <div 
-            id={`section${index + 2}`} 
-            className="event" 
-            key={product._id}
-            style={backgroundImageUrl 
-                ? { backgroundImage: `url(${backgroundImageUrl})` } 
-                : {}
-              }
-            >
+    return (
+      <div className='main-container'>
+        <section className="events-page">
+          <div id="section1" 
+               className="event" 
+               style={{ backgroundImage: `url(${roomData.imageSrc})` }}
+          >
             <div className="pinWrapper">
               <div className="text">
-                <h2>{product.name}</h2>
-                <p>{product.description}</p>
+                <h2>{roomData ? roomData.roomName : ''}</h2>
+                <p>{roomData ? roomData.preloaderSubtitle : ''}</p>
               </div>
-              <div
-                className="image"
-                style={{ backgroundImage: `url(${productImageUrl})` }}
-                onClick={() => handleImageClick(product)} //adding the click handler
-              ></div>
-            </div>          
-          </div>                   
-          );       
-        })}
-        
-      </section>
-      <div className='slides-container'>
-        <RoomSlides images={selectedImages} progress={scrollYProgress} />
-        <Link to="/gallery">
-         <ArrowButton scrollYProgress={scrollYProgress} />
-        </Link>
-      </div>
-      {/* Loader */}
-      <div id="preloader" ref={preloaderRef}>
-        <div className="text-wrapper">
-          <h1 id="first-text" ref={firstTextRef}>
-          {roomData ? roomData.preloaderTitle1 : ''}
-          </h1>
-          <h3 id="second-text" ref={secondTextRef}>
-          {roomData ? roomData.preloaderTitle2 : ''}
-          </h3>
+              <div className="image" id="loaderVideo" ref={loaderVideoRef}>
+                <video autoPlay loop muted playsInline>
+                  <source src={roomData.videoSrc} type="video/mp4" />
+                </video>
+              </div>
+            </div>
+            <div className="scrollBtn" ref={scrollIndicatorRef}>
+              <h6>scroll</h6>
+              <span></span>
+            </div>
+          </div>
+          {products.slice(0,3).map((product, index) => {
+            let productImageUrl = '';
+            let backgroundImageUrl = '';
+            
+            if (
+              product.images &&
+              product.images.product &&
+              product.images.product.length > 0 &&
+              product.images.product[0].url 
+            ) {
+              productImageUrl = product.images.product[0].url;
+            } else {
+              productImageUrl = '/images/LivingRoom/LivingRoom-small.webp';
+            }
+    
+            if (
+              product.images &&
+              product.images.contextual &&
+              product.images.contextual.length > 0 &&
+              product.images.contextual[1].url
+            ) {
+              backgroundImageUrl = product.images.contextual[1].url;
+            }
+            return (
+              <div 
+              id={`section${index + 2}`} 
+              className="event" 
+              key={product._id}
+              style={backgroundImageUrl 
+                  ? { backgroundImage: `url(${backgroundImageUrl})` } 
+                  : {}
+                }
+              >
+              <div className="pinWrapper">
+                <div className="text">
+                  <h2>{product.name}</h2>
+                  <p>{product.description}</p>
+                </div>
+                <div
+                  className="image"
+                  style={{ backgroundImage: `url(${productImageUrl})` }}
+                  onClick={() => handleImageClick(product)}
+                ></div>
+              </div>          
+            </div>                   
+            );       
+          })}
+        </section>
+    
+        <div className='slides-container'>
+          <RoomSlides images={selectedImages} progress={scrollYProgress} />
         </div>
-      </div>
-    </div>
-  );
+    
+        <div className="button-section" ref={buttonSectionRef}  style={{ backgroundImage: `url(${roomData.imageSrc})` }}>
+          <div className="navigation-buttons">
+            <Link to="/gallery">
+              <ArrowButton scrollYProgress={scrollYProgress} />
+            </Link>
+            <button className="view-360-button" onClick={handle360ViewClick}>
+               360° view of the room
+            </button>
+          </div>
+        </div>
+          {/* Loader */}
+          <div id="preloader" ref={preloaderRef}>
+          <div className="text-wrapper">
+            <h1 id="first-text" ref={firstTextRef}>
+            {roomData ? roomData.preloaderTitle1 : ''}
+            </h1>
+            <h3 id="second-text" ref={secondTextRef}>
+            {roomData ? roomData.preloaderTitle2 : ''}
+            </h3>
+          </div>
+        </div>
+    
+          <AnimatePresence>
+            {is360View && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="room-360-view-container fullscreen"
+                style={{
+                  width: '100vw',
+                  height: '100vh',
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  zIndex: 9999,
+                }}
+              >
+                <Room360View 
+                  imagePath={roomData.image360Path} 
+                  onBack={handleBack360Click}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+    );
 }
 
 export default Gallery;
