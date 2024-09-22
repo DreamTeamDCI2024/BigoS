@@ -90,7 +90,15 @@
     -webkit-box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
     -moz-box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
     box-shadow: -2px -1px 5px 1px rgba(54,53,54,0.76);
+    background: linear-gradient(to right, #454545 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0%;
+    border: none;
+    cursor: pointer;
+    transition: background-position 0.5s ease-in-out;
+    outline: none;
 }
-.add-to-cart:active{
-    transform: scale(1.2);
+.add-to-cart:hover {
+    background-position: 0% 0%;
+    color: #efefee; /* Changes the text color to black on hover */
 }

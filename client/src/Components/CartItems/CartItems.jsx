@@ -29,6 +29,19 @@ const CartItems = () => {
     };
     fetchProducts();
   }, []);
+    // Handle scroll lock when modal is open
+    useEffect(() => {
+      if (isModalOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+  
+      // Cleanup when component unmounts
+      return () => {
+        document.body.style.overflow = 'auto';
+      };
+    }, [isModalOpen]);
 
   const openModal = () => {
     const token = localStorage.getItem('token');
