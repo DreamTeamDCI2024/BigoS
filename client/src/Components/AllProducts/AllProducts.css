@@ -96,3 +96,25 @@
   .switch-indicator.transparent {
     left: calc(100% - 16px);
   }
+
+  .room-filter-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .room-filter-buttons button{
+    width: 117px;
+    font-size: 16px;
+    font-family: 'Poppins';
+    color: #272727;
+    margin-right: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(69,69,69,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(69,69,69,1);
+    box-shadow: 0px 0px 10px 0px rgba(69,69,69,1);
+  }
+  .room-filter-buttons .active{
+    color: #f4efe7;
+    
+  }

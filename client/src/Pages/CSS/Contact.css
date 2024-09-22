@@ -86,13 +86,13 @@
     
    
     .dark-btn:hover {
-      background-color: #555;   
+      background-color: #ff5a5a;   
     }
     
     
-    .dark-btn:active {
+    /*.dark-btn:active {
       background-color: #222;
-    }
+    }*/
     
     .contact-col span {
       display: block;

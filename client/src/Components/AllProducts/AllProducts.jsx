@@ -8,6 +8,7 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [imageCategory, setImageCategory] = useState('product');
+  const [selectedRoom, setSelectedRoom] = useState('all');
   const [fadeOut, setFadeOut] = useState(false);
   
   useEffect(() => {
@@ -28,6 +29,9 @@ const AllProducts = () => {
 if (loading) return <div>Loading...</div>;
 if (error) return <div>{error}</div>;
 
+// Extract unique room names from products
+const uniqueRooms = [...new Set(products.map(product => product.room))];
+
 const handleCategoryChange = (category) => {
   if (category !== imageCategory) {
     setFadeOut(true);
@@ -39,9 +43,34 @@ const handleCategoryChange = (category) => {
   //setImageCategory(category);
 };
 
+// Filter products based on the selected room
+const filteredProducts = selectedRoom === 'all'
+? products
+: products.filter(product => product.room === selectedRoom);
+
   return (
     <div className='all-products'>
         <h1>Our Products</h1>
+
+        {/* Room Filter Buttons */}
+      <div className="room-filter-buttons">
+        <button 
+          className={selectedRoom === 'all' ? 'active' : ''} 
+          onClick={() => setSelectedRoom('all')}
+        >
+          All 
+        </button>
+        {uniqueRooms.map(room => (
+          <button 
+            key={room}
+            className={selectedRoom === room ? 'active' : ''} 
+            onClick={() => setSelectedRoom(room)}
+          >
+            {room}
+          </button>
+        ))}
+      </div>
+
         <div className="image-category-switch">
         <div className="switch-track"></div>
         <button 
@@ -61,8 +90,9 @@ const handleCategoryChange = (category) => {
         ></button>
         <div className={`switch-indicator ${imageCategory}`}></div>
       </div>
+       {/* Display Products */}
       <div className={`all-products-item ${fadeOut ? 'fade-out' : 'fade-in'}`}>
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <Item 
             key={product._id}
             id={product._id}
@@ -71,7 +101,7 @@ const handleCategoryChange = (category) => {
             price={product.price}
           />
         ))}
-        </div>
+      </div>
         
     </div>
   )
